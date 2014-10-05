@@ -1,0 +1,5 @@
+_ReSharper.WebShop
+packages
+/WebShop.App/WebShop.csproj.user
+bin
+obj

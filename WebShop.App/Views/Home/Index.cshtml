@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebShop.Services.Book>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h2>todo: Most popular books</h2>
+            </hgroup>
+        </div>
+    </section>
+}
+
+<h3>todo: Books catalog</h3>
+<p></p>
+
+@foreach( var book in Model )
+{
+    <li><div>@book.Title</div></li>
+}
+    
