@@ -30,6 +30,8 @@ namespace WebShop.Services
                     Title = a.Title,
                     Author = null,
                     Price = a.Price,
+                    ThumbImage = a.ThumbImage,
+                    TitleImage = a.TitleImage,
                 } );
             return books;
         }

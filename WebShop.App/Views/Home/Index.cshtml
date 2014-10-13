@@ -1,9 +1,8 @@
-﻿@model IEnumerable<WebShop.Services.Book>
-
+﻿@using WebShop.Extensions
+@model IEnumerable<WebShop.ViewModels.CatalogBookViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
-
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -13,12 +12,25 @@
         </div>
     </section>
 }
+<style type="text/css">
+    .bookSmall
+    {
+        display: inline-block;
+        width: 150px;
+        padding-bottom: 12px;
+    }
+</style>
 
-<h3>todo: Books catalog</h3>
-<p></p>
-
-@foreach( var book in Model )
-{
-    <li><div>@book.Title</div></li>
-}
-    
+<div>
+    @foreach( var book in Model )
+    {
+        <div class="bookSmall">
+            <div>
+                @Html.ImageActionLink( book.Thumb, "Details", "Books", new RouteValueDictionary( new { id = book.Id } ) )
+                <div>
+                    @Html.ActionLink( book.Title, "Details", "Books", new RouteValueDictionary( new { id = book.Id } ), null )
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -9,5 +9,11 @@
         public Author Author { get; set; }
 
         public float Price { get; set; }
+
+        public string ThumbImage { get; set; }
+
+        public string TitleImage { get; set; }
     }
+
+    
 }

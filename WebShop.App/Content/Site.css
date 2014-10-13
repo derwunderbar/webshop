@@ -17,8 +17,6 @@ body {
 a {
     color: #333;
     outline: none;
-    padding-left: 3px;
-    padding-right: 3px;
     text-decoration: underline;
 }
 
@@ -26,7 +24,7 @@ a {
     a:active, a:hover {
         color: #333;
     }
-
+    
     a:hover {
         background-color: #c7d1d6;
     }
@@ -593,6 +591,28 @@ tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
+
+    /* books
+    ----------------------------------------------------------*/
+
+    .bookSmall>div {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    
+    .bookSmall
+    {
+        display: inline-block;
+        width: 150px;
+        padding-bottom: 12px;
+    }
+    
+    /*
+    img:hover{
+        background-color: #c6f;
+    }
+    */
+    
 
 /********************
 *   Mobile Styles   *
