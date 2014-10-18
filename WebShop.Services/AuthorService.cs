@@ -26,7 +26,6 @@ namespace WebShop.Services
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Avatar = entity.Avatar,
                 Books = entity.Books
                     .Select(a => new Book()
                     {

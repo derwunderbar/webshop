@@ -2,11 +2,12 @@
 @{
     ViewBag.Title = Model.Name;
 }
+
 <div id="content-container">
-    <div class="horizontal">
-        <img src="@Model.Avatar" alt="@Model.Name"/>
+    <div class="block-title">
+        <h4>Books by <span class="highlight">@Model.Name</span></h4>
     </div>
-    <div class="horizontal">
-        <h3>@Model.Name</h3>
+    <div>
+        @Html.Partial("_BookListViewPartial", Model.Books)
     </div>
 </div>

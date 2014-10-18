@@ -175,7 +175,6 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BookDetailsViewModel.cs" />
-    <Compile Include="ViewModels\CatalogBookViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\WebShop.mdf" />

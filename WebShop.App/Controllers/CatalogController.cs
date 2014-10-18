@@ -28,20 +28,15 @@ namespace WebShop.Controllers
 
         public PartialViewResult BookListViewPartial()
         {
-            var books = _bookService.GetAll().Take(23);
+            var books = _bookService.GetAll()
+                .Take(23)
+                .ToArray();
 
-            var thumbVirtualPath = _appConfig.BookThumbsVirtualPath;
             var imageUrlProvider = new ImageUrlProvider();
-            var viewModel = books.Select(a =>
-                new CatalogBookViewModel()
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Price = a.Price,
-                    Thumb = imageUrlProvider.GetUrl(thumbVirtualPath, a.Cover),
-                });
+            foreach (var book in books)
+                book.Cover = imageUrlProvider.GetUrl(_appConfig.BookThumbsVirtualPath, book.Cover);
 
-            return PartialView("_BookListViewPartial", viewModel);
+            return PartialView("_BookListViewPartial", books);
         }
 
         public ActionResult Details(int id)
@@ -70,10 +65,11 @@ namespace WebShop.Controllers
         {
             var author = _authorService.Get(id);
             var imageUrlProvider = new ImageUrlProvider();
-            author.Avatar = imageUrlProvider.GetUrl(_appConfig.AuthorImagesVirtualPath, author.Avatar);
-            foreach (var book in author.Books)
+            var books = author.Books.ToArray();
+            foreach (var book in books)
                 book.Cover = imageUrlProvider.GetUrl(_appConfig.BookThumbsVirtualPath, book.Cover);
-            
+            author.Books = books;
+
             return View(author);
         }
     }

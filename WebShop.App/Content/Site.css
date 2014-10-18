@@ -614,6 +614,15 @@ tr.pager td {
         padding-right: 6px;
     }
     
+    .highlight {
+        color: #E47911;
+    }
+    
+    .block-title {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    
     .vertical-space {
         height: 20px;
     }

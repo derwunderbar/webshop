@@ -17,7 +17,6 @@ namespace WebShop.Data
                 Id = id,
                 FirstName = authorEntity.FirstName,
                 LastName = authorEntity.LastName,
-                Avatar = "default.jpg",
                 Books = EntityStubs.GetBooks(),
             };
 
