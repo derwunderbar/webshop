@@ -21,7 +21,7 @@
             <div>
                 @Html.ImageActionLink(book.Thumb, "Details", "Books", new RouteValueDictionary(new { id = book.Id }))
                 <div>
-                    @Html.ActionLink(book.Title, "Details", "Books", new RouteValueDictionary(new { id = book.Id }), null)
+                    @Html.ActionLink(book.Title, "Details", "Catalog", new RouteValueDictionary(new { id = book.Id }), null)
                 </div>
             </div>
         </div>

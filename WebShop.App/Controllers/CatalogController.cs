@@ -3,19 +3,18 @@ using System.Web;
 using System.Web.Mvc;
 using WebShop.Data;
 using WebShop.Services;
-using WebShop.Services.Models;
 using WebShop.Utilities;
 using WebShop.ViewModels;
 
 namespace WebShop.Controllers
 {
-    public class BooksController : Controller
+    public class CatalogController : Controller
     {
         private readonly IBookService _bookService;
         private readonly IAuthorService _authorService;
         private readonly IApplicationConfig _appConfig;
 
-        public BooksController()
+        public CatalogController()
         {
             _bookService = new BookService(new BookRepository());
             _authorService = new AuthorService(new AuthorRepository());
