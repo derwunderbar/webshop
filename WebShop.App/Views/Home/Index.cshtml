@@ -1,9 +1,6 @@
-﻿@using WebShop.Extensions
-@model IEnumerable<WebShop.ViewModels.CatalogBookViewModel>
-@{
-    ViewBag.Title = "Home Page";
+﻿@{
+    ViewBag.Title = "Best book shop";
 }
-
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -15,15 +12,5 @@
 }
 
 <div id="content-container">
-    @foreach (var book in Model)
-    {
-        <div class="bookSmall">
-            <div>
-                @Html.ImageActionLink(book.Thumb, "Details", "Books", new RouteValueDictionary(new { id = book.Id }))
-                <div>
-                    @Html.ActionLink(book.Title, "Details", "Catalog", new RouteValueDictionary(new { id = book.Id }), null)
-                </div>
-            </div>
-        </div>
-    }
+    @Html.Action("BookListViewPartial", "Catalog");
 </div>

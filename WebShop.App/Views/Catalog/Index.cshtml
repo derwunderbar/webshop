@@ -1,7 +1,7 @@
-﻿@model IEnumerable<WebShop.Services.Models.Book>
-
-@{
-    ViewBag.Title = "title";
+﻿@{
+    ViewBag.Title = "Best book shop";
 }
 
-<h2>title</h2>
+<div id="content-container">
+    @Html.Action("BookListViewPartial", "Catalog");
+</div>

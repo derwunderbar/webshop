@@ -23,9 +23,25 @@ namespace WebShop.Controllers
 
         public ActionResult Index()
         {
-            var books = _bookService.GetAll().Take( 10 );
+            return View();
+        }
 
-            return View( books );
+        public PartialViewResult BookListViewPartial()
+        {
+            var books = _bookService.GetAll().Take(23);
+
+            var thumbVirtualPath = _appConfig.BookThumbsVirtualPath;
+            var imageUrlProvider = new ImageUrlProvider();
+            var viewModel = books.Select(a =>
+                new CatalogBookViewModel()
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Price = a.Price,
+                    Thumb = imageUrlProvider.GetUrl(thumbVirtualPath, a.Cover),
+                });
+
+            return PartialView("_BookListViewPartial", viewModel);
         }
 
         public ActionResult Details(int id)
