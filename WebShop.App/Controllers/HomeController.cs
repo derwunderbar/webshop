@@ -22,7 +22,7 @@ namespace WebShop.Controllers
         {
             var books = _bookService.GetAll().Take( 23 );
 
-            var thumbVirtualPath = _appConfig.ThumbVirtualPath;
+            var thumbVirtualPath = _appConfig.BookThumbsVirtualPath;
             var imageUrlProvider = new ImageUrlProvider();
             var viewModels = books.Select( a =>
                 new CatalogBookViewModel()
@@ -30,7 +30,7 @@ namespace WebShop.Controllers
                     Id = a.Id,
                     Title = a.Title,
                     Price = a.Price,
-                    Thumb = imageUrlProvider.GetUrl( thumbVirtualPath, a.ThumbImage ),
+                    Thumb = imageUrlProvider.GetUrl( thumbVirtualPath, a.Cover ),
                 } );
 
             return View( viewModels );

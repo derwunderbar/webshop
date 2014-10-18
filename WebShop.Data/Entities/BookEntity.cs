@@ -1,4 +1,4 @@
-﻿namespace WebShop.Data
+﻿namespace WebShop.Data.Entities
 {
     public class BookEntity
     {

@@ -1,6 +1,6 @@
-﻿namespace WebShop.Services
+﻿namespace WebShop.Data.Entities
 {
-    public class Author
+    public class AuthorEntity
     {
         public int Id { get; set; }
 

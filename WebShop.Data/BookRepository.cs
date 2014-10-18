@@ -1,52 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebShop.Data.Entities;
 
 namespace WebShop.Data
 {
     public interface IBookRepository
     {
         IEnumerable<BookEntity> GetAll();
+
+        BookDetailsEntity Get(int id);
     }
 
     public class BookRepository : IBookRepository
     {
         public IEnumerable<BookEntity> GetAll()
         {
-            var books = new[]
-            {
-                new BookEntity()
-                {
-                    Id = 1,
-                    Title = "Dependency Injection in .NET",
-                    Price = 19.0f,
-                    ThumbImage = "dependency-injection-in-dotnet.jpg",
-                    TitleImage = "dependency-injection-in-dotnet.jpg",
-                },
-
-                new BookEntity()
-                {
-                    Id = 2,
-                    Title = "C# in Depth, 3rd Edition",
-                    Price = 30.0f,
-                    ThumbImage = "c-sharp-in-depth.jpg",
-                    TitleImage = "c-sharp-in-depth.jpg",
-                },
-
-                new BookEntity()
-                {
-                    Id = 3,
-                    Title = "Professional Test Driven Development",
-                    Price = 24.0f,
-                    ThumbImage = "test-driven-development-with-c-sharp.jpg",
-                    TitleImage = "test-driven-development-with-c-sharp.jpg",
-                },
-            };
-
-            var resultBooks = (IEnumerable<BookEntity>)books;
+            // todo: query data from db
+            var books = EntityStubs.GetBooks();
+            var resultBooks = books;
             for( var i = 0; i < 10; i++ )
                 resultBooks = resultBooks.Concat( resultBooks );
 
             return resultBooks;
+        }
+
+        public BookDetailsEntity Get(int id)
+        {
+            // todo: query data from db
+            var bookEntity = GetAll().FirstOrDefault(a => a.Id == id);
+            if (bookEntity == null)
+                return null;
+
+            var bookDetails = new BookDetailsEntity()
+            {
+                Id = bookEntity.Id,
+                Title = bookEntity.Title,
+                Price = bookEntity.Price,
+                ThumbImage = bookEntity.ThumbImage,
+                TitleImage = bookEntity.TitleImage,
+                Author = EntityStubs.GetAuthor(),
+                Publisher = EntityStubs.GetPublisher(),
+                Description = "Couple of words about the book",
+            };
+
+            return bookDetails;
         }
     }
 }

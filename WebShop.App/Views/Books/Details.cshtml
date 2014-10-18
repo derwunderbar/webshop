@@ -1,10 +1,21 @@
-﻿@model WebShop.Services.Book
-
+﻿@model WebShop.ViewModels.BookDetailsViewModel
 @{
-    ViewBag.Title = "Catalog";
-    //Layout = "Index.cshtml";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>title</h2>
-
-// todo: book details here
+<div id="content-container">
+    <div class="horizontal"><img src="@Model.Cover" alt="@Model.Title"/></div>
+    <div class="horizontal">
+        <h3>@Model.Title</h3>
+        
+        <div>by @Html.ActionLink(Model.Author.Name, "Author", new {id = Model.Author.Id})</div>
+        <div style="height: 20px"></div>
+        <div><b>$ @Model.Price</b></div>
+        <div class="vertical-space"></div>
+        <div><b>Publisher:</b> @Model.Publisher.Name</div>
+        <div class="vertical-space"></div>
+        <div class="vertical-space"></div>
+        <div><b>Description:</b> @Model.Description</div>
+    </div>
+    <div class="horizontal"></div>
+</div>

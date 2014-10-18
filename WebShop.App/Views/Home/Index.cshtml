@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -12,23 +13,15 @@
         </div>
     </section>
 }
-<style type="text/css">
-    .bookSmall
-    {
-        display: inline-block;
-        width: 150px;
-        padding-bottom: 12px;
-    }
-</style>
 
-<div>
-    @foreach( var book in Model )
+<div id="content-container">
+    @foreach (var book in Model)
     {
         <div class="bookSmall">
             <div>
-                @Html.ImageActionLink( book.Thumb, "Details", "Books", new RouteValueDictionary( new { id = book.Id } ) )
+                @Html.ImageActionLink(book.Thumb, "Details", "Books", new RouteValueDictionary(new { id = book.Id }))
                 <div>
-                    @Html.ActionLink( book.Title, "Details", "Books", new RouteValueDictionary( new { id = book.Id } ), null )
+                    @Html.ActionLink(book.Title, "Details", "Books", new RouteValueDictionary(new { id = book.Id }), null)
                 </div>
             </div>
         </div>
