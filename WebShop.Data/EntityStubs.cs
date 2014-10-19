@@ -3,9 +3,9 @@ using WebShop.Data.Entities;
 
 namespace WebShop.Data
 {
-    public static class EntityStubs
+    internal static class EntityStubs
     {
-        public static IEnumerable<BookEntity> GetBooks()
+        internal static IEnumerable<BookEntity> GetBooks()
         {
             var books = new[]
             {
@@ -38,12 +38,12 @@ namespace WebShop.Data
             return books;
         }
 
-        public static AuthorEntity GetAuthor()
+        internal static AuthorEntity GetAuthor()
         {
             return new AuthorEntity() { Id = 1, FirstName = "FirstName", LastName = "LastName" };
         }
 
-        public static PublisherEntity GetPublisher()
+        internal static PublisherEntity GetPublisher()
         {
             return new PublisherEntity() { Id = 1, Name = "Publisher #1" };
         }

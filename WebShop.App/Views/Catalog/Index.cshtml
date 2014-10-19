@@ -1,7 +1,10 @@
-﻿@{
+﻿@model WebShop.ViewModels.PageViewModel
+@{
     ViewBag.Title = "Best book shop";
 }
 
 <div id="content-container">
-    @Html.Action("BookListViewPartial", "Catalog");
+    <div>
+        @Html.Action( "BookListViewPartial", "Catalog", new { page = Model.PageNumber } )
+    </div>
 </div>

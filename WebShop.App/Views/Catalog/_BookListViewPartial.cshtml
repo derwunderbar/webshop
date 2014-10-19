@@ -1,14 +1,18 @@
 ﻿@using WebShop.Extensions
-@model IEnumerable<WebShop.Services.Models.Book>
+@model WebShop.ViewModels.PagedEnumerableViewModel<WebShop.Services.Models.Book>
 
-@foreach (var book in Model)
+@foreach( var book in Model.Items )
 {
     <div class="bookSmall">
         <div>
-            @Html.ImageActionLink(book.Cover, "Details", "Catalog", new RouteValueDictionary(new { id = book.Id }))
+            @Html.ImageActionLink( book.Cover, "Details", "Catalog", new RouteValueDictionary( new { id = book.Id } ) )
             <div>
-                @Html.ActionLink(book.Title, "Details", "Catalog", new RouteValueDictionary(new { id = book.Id }), null)
+                @Html.ActionLink( book.Title, "Details", "Catalog", new RouteValueDictionary( new { id = book.Id } ), null )
             </div>
         </div>
     </div>
 }
+
+<div>
+    @Html.Pager( Model.PageSize, Model.PageNumber, Model.TotalItemsCount ).Options( a => a.Action( "Index" ) )
+</div>

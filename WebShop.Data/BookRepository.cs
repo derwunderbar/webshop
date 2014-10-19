@@ -1,33 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using WebShop.Core.Collections.Generic;
 using WebShop.Data.Entities;
 
 namespace WebShop.Data
 {
     public interface IBookRepository
     {
-        IEnumerable<BookEntity> GetAll();
+        IPagedEnumerable<BookEntity> Get( int page, int pageSize );
 
         BookDetailsEntity Get(int id);
     }
 
     public class BookRepository : IBookRepository
     {
-        public IEnumerable<BookEntity> GetAll()
+        public IPagedEnumerable<BookEntity> Get( int page, int pageSize )
         {
             // todo: query data from db
             var books = EntityStubs.GetBooks();
-            var resultBooks = books;
-            for( var i = 0; i < 10; i++ )
-                resultBooks = resultBooks.Concat( resultBooks );
 
-            return resultBooks;
+            while( books.Count() < 43 )
+                books = books.Concat( EntityStubs.GetBooks() );
+
+            var resultBooksForTitleUpdate = books.ToArray();
+            for( var i = 0; i < resultBooksForTitleUpdate.Length; i++ )
+            {
+                var bookEntity = resultBooksForTitleUpdate[i];
+                bookEntity.Title = String.Format( "{0} {1}", i + 1, bookEntity.Title );
+            }
+
+            books = resultBooksForTitleUpdate
+                .Skip( (page - 1) * pageSize )
+                .Take( pageSize );
+
+            var totalCount = resultBooksForTitleUpdate.Count();
+
+            return new PagedEnumerable<BookEntity>(books, totalCount);
         }
 
         public BookDetailsEntity Get(int id)
         {
             // todo: query data from db
-            var bookEntity = GetAll().FirstOrDefault(a => a.Id == id);
+            var bookEntity = EntityStubs.GetBooks().FirstOrDefault( a => a.Id == id );
             if (bookEntity == null)
                 return null;
 

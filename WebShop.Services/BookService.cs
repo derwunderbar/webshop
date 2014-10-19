@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using WebShop.Core.Collections.Generic;
 using WebShop.Data;
 using WebShop.Services.Models;
 
@@ -7,7 +7,7 @@ namespace WebShop.Services
 {
     public interface IBookService
     {
-        IEnumerable<Book> GetAll();
+        IPagedEnumerable<Book> Get( int page, int pageSize );
 
         BookDetails Get(int id);
     }
@@ -23,10 +23,10 @@ namespace WebShop.Services
         }
 
 
-        public IEnumerable<Book> GetAll()
+        public IPagedEnumerable<Book> Get( int page, int pageSize )
         {
-            var bookEntities = _bookRepository.GetAll();
-            var books = bookEntities
+            var bookEntities = _bookRepository.Get(page, pageSize);
+            var books = bookEntities.Items
                 .Select(a => new Book()
                 {
                     Id = a.Id,
@@ -34,7 +34,7 @@ namespace WebShop.Services
                     Price = a.Price,
                     Cover = a.ThumbImage,
                 });
-            return books;
+            return new PagedEnumerable<Book>( books, bookEntities.TotalItemsCount );
         }
 
         public BookDetails Get(int id)

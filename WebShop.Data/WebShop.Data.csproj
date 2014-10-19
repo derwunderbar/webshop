@@ -46,6 +46,12 @@
     <Compile Include="Entities\PublisherEntity.cs" />
     <Compile Include="EntityStubs.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj">
+      <Project>{4931AF72-9FBA-4BA7-932D-50E64213B072}</Project>
+      <Name>WebShop.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

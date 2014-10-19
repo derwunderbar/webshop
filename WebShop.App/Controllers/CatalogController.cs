@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebShop.Data;
 using WebShop.Services;
+using WebShop.Services.Models;
 using WebShop.Utilities;
 using WebShop.ViewModels;
 
@@ -16,35 +17,44 @@ namespace WebShop.Controllers
 
         public CatalogController()
         {
-            _bookService = new BookService(new BookRepository());
-            _authorService = new AuthorService(new AuthorRepository());
+            _bookService = new BookService( new BookRepository() );
+            _authorService = new AuthorService( new AuthorRepository() );
             _appConfig = new ApplicationConfig();
         }
 
-        public ActionResult Index()
+        public ActionResult Index( int? page )
         {
-            return View();
+            var viewModel = new PageViewModel() { PageNumber = page };
+            return View( viewModel );
         }
 
-        public PartialViewResult BookListViewPartial()
+        public PartialViewResult BookListViewPartial( int? page )
         {
-            var books = _bookService.GetAll()
-                .Take(23)
-                .ToArray();
+            const int pageSize = 10;
+            var pageInner = page ?? 1;
+            var booksPage = _bookService.Get( pageInner, pageSize );
+            var books = booksPage.Items.ToArray();
 
             var imageUrlProvider = new ImageUrlProvider();
-            foreach (var book in books)
-                book.Cover = imageUrlProvider.GetUrl(_appConfig.BookThumbsVirtualPath, book.Cover);
+            foreach( var book in books )
+                book.Cover = imageUrlProvider.GetUrl( _appConfig.BookThumbsVirtualPath, book.Cover );
 
-            return PartialView("_BookListViewPartial", books);
+            var viewModel = new PagedEnumerableViewModel<Book>()
+            {
+                PageNumber = pageInner,
+                PageSize = pageSize,
+                Items = books,
+                TotalItemsCount = booksPage.TotalItemsCount,
+            };
+            return PartialView( "_BookListViewPartial", viewModel );
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details( int id )
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.Get( id );
 
-            if (book == null)
-                throw new HttpException(404, "Not Found");
+            if( book == null )
+                throw new HttpException( 404, "Not Found" );
 
             var imageUrlProvider = new ImageUrlProvider();
             var viewModel = new BookDetailsViewModel()
@@ -52,25 +62,25 @@ namespace WebShop.Controllers
                 Id = book.Id,
                 Title = book.Title,
                 Price = book.Price,
-                Cover = imageUrlProvider.GetUrl(_appConfig.BookImagesVirtualPath, book.Cover),
+                Cover = imageUrlProvider.GetUrl( _appConfig.BookImagesVirtualPath, book.Cover ),
                 Author = book.Author,
                 Publisher = book.Publisher,
                 Description = book.Description,
             };
-            
-            return View(viewModel);
+
+            return View( viewModel );
         }
 
-        public ActionResult Author(int id)
+        public ActionResult Author( int id )
         {
-            var author = _authorService.Get(id);
+            var author = _authorService.Get( id );
             var imageUrlProvider = new ImageUrlProvider();
             var books = author.Books.ToArray();
-            foreach (var book in books)
-                book.Cover = imageUrlProvider.GetUrl(_appConfig.BookThumbsVirtualPath, book.Cover);
+            foreach( var book in books )
+                book.Cover = imageUrlProvider.GetUrl( _appConfig.BookThumbsVirtualPath, book.Cover );
             author.Books = books;
 
-            return View(author);
+            return View( author );
         }
     }
 }
