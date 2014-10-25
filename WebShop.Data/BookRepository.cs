@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebShop.Core.Collections.Generic;
 using WebShop.Data.Entities;
@@ -8,6 +9,8 @@ namespace WebShop.Data
     public interface IBookRepository
     {
         IPagedEnumerable<BookEntity> Get( int page, int pageSize );
+
+        IEnumerable<BookEntity> Get( int[] ids );
 
         BookDetailsEntity Get(int id);
     }
@@ -36,6 +39,15 @@ namespace WebShop.Data
             var totalCount = resultBooksForTitleUpdate.Count();
 
             return new PagedEnumerable<BookEntity>(books, totalCount);
+        }
+
+        public IEnumerable<BookEntity> Get( int[] ids )
+        {
+            // todo: query data from db
+            var books = EntityStubs.GetBooks()
+                .Where( a => ids.Contains( a.Id ) );
+
+            return books;
         }
 
         public BookDetailsEntity Get(int id)

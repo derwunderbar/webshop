@@ -1,0 +1,41 @@
+﻿@model WebShop.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th></th>
+    </tr>
+    @foreach( var item in Model.Items ) 
+    {
+        <tr>
+            <td>
+                @Html.ActionLink( item.Title, "Details", "Catalog", new { id = item.Id }, null )
+            </td>
+            <td class="number-alignment">
+                $ @item.Price
+            </td>
+            <td class="number-alignment">
+                @item.Count
+            </td>
+            <td>
+                @*@Ajax.ActionLink( "Remove", "Remove", new { id = item.Id }, new AjaxOptions() { HttpMethod = "POST" } )*@
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" class="total-row"><b>Subtotal (@Model.TotalItems items): $ @Model.TotalPrice</b></td>
+        <td></td>
+    </tr>
+</table>

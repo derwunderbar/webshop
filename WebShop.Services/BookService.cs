@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using WebShop.Core.Collections.Generic;
 using WebShop.Data;
 using WebShop.Services.Models;
@@ -9,7 +11,9 @@ namespace WebShop.Services
     {
         IPagedEnumerable<Book> Get( int page, int pageSize );
 
-        BookDetails Get(int id);
+        IEnumerable<Book> Get(int[] ids);
+
+        BookDetails Get( int id );
     }
 
     public class BookService : IBookService
@@ -35,6 +39,21 @@ namespace WebShop.Services
                     Cover = a.ThumbImage,
                 });
             return new PagedEnumerable<Book>( books, bookEntities.TotalItemsCount );
+        }
+
+        public IEnumerable<Book> Get( int[] ids )
+        {
+            var bookEntities = _bookRepository.Get( ids );
+            var books = bookEntities
+                .Select( a => new Book()
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Price = a.Price,
+                    Cover = a.ThumbImage,
+                } );
+
+            return books;
         }
 
         public BookDetails Get(int id)

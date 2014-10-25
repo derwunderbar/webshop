@@ -41,6 +41,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookDetails.cs" />
     <Compile Include="BookService.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\PublisherDetails.cs" />
