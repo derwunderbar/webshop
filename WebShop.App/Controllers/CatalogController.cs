@@ -46,7 +46,7 @@ namespace WebShop.Controllers
                 Items = books,
                 TotalItemsCount = booksPage.TotalItemsCount,
             };
-            return PartialView( "_BookListViewPartial", viewModel );
+            return PartialView( "_BookListViewPagedPartial", viewModel );
         }
 
         public ActionResult Details( int id )

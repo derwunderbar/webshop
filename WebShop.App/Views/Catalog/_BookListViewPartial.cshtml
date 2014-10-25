@@ -1,7 +1,7 @@
 ﻿@using WebShop.Extensions
-@model WebShop.ViewModels.PagedEnumerableViewModel<WebShop.Services.Models.Book>
+@model IEnumerable<WebShop.Services.Models.Book>
 
-@foreach( var book in Model.Items )
+@foreach( var book in Model )
 {
     <div class="bookSmall">
         <div>
@@ -15,7 +15,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.Pager( Model.PageSize, Model.PageNumber, Model.TotalItemsCount ).Options( a => a.Action( "Index" ) )
-</div>

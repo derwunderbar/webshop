@@ -44,7 +44,11 @@ namespace WebShop.Controllers
                 shoppingCartViewModel.Items = shoppingCartItemViewModels.ToArray();
             }
 
-            return View( shoppingCartViewModel );
+            var view = shoppingCartViewModel.Items.Any()
+                ? View( shoppingCartViewModel )
+                : View( "IndexEmpty" );
+
+            return view;
         }
 
         [HttpPost]
