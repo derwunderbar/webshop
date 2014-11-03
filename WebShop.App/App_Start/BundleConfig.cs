@@ -1,4 +1,5 @@
 ﻿using System.Web.Optimization;
+using WebShop.Utilities;
 
 namespace WebShop
 {
@@ -22,6 +23,12 @@ namespace WebShop
             bundles.Add( new ScriptBundle( "~/bundles/modernizr" ).Include(
                         "~/Scripts/modernizr-*" ) );
 
+            var toastrBundle = new ScriptBundle( "~/bundles/toastr" )
+                .Include( "~/Scripts/toastr.js",
+                    "~/Scripts/Views/toastr-customization.js" );
+            toastrBundle.Orderer = new ExplicitFileOrderer();
+            bundles.Add( toastrBundle );
+
             bundles.Add( new StyleBundle( "~/Content/css" ).Include( "~/Content/site.css" ) );
 
             bundles.Add( new StyleBundle( "~/Content/themes/base/css" ).Include(
@@ -37,6 +44,9 @@ namespace WebShop
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css" ) );
+
+            bundles.Add( new StyleBundle( "~/Content/toastr" ).Include(
+                        "~/Content/toastr.css" ) );
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@using WebShop.Extensions
 @model IEnumerable<WebShop.Services.Models.Book>
 
+
 @foreach( var book in Model )
 {
     <div class="bookSmall">
@@ -10,7 +11,13 @@
                 @Html.ActionLink( book.Title, "Details", "Catalog", new { id = book.Id }, null )
             </div>
             <div>
-                @Ajax.ActionLink( "Add to cart", "Add", "ShoppingCart", new { id = book.Id }, new AjaxOptions(){ HttpMethod = "POST"} )
+                @Ajax.ActionLink( "Add to cart", "Add", "ShoppingCart", new { id = book.Id },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST", 
+                        OnSuccess = String.Format( "toastr.success('\"{0}\" added to cart')", book.Title ),
+                        OnFailure = String.Format( "toastr.error('Adding \"{0}\" to cart failed')", book.Title ),
+                    } )
             </div>
         </div>
     </div>

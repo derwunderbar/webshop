@@ -1,6 +1,15 @@
 ﻿@{
     ViewBag.Title = "Best book shop";
 }
+
+@section styles {
+    @Styles.Render("~/Content/toastr")
+}
+
+@section scripts {
+    @Scripts.Render( "~/bundles/toastr" )
+}
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">

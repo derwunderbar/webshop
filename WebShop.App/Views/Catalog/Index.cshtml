@@ -3,8 +3,16 @@
     ViewBag.Title = "Best book shop";
 }
 
+@section styles {
+    @Styles.Render("~/Content/toastr")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/toastr")
+}
+
 <div id="content-container">
     <div>
-        @Html.Action( "BookListViewPartial", "Catalog", new { page = Model.PageNumber } )
+        @Html.Action("BookListViewPartial", "Catalog", new { page = Model.PageNumber })
     </div>
 </div>
