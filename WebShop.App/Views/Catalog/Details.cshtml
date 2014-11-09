@@ -3,18 +3,41 @@
     ViewBag.Title = Model.Title;
 }
 
+@section styles {
+    @Styles.Render("~/Content/toastr")
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/catalog.js")
+}
+
 <div id="content-container">
-    <div class="horizontal"><img src="@Model.Cover" alt="@Model.Title"/></div>
-    <div class="horizontal">
+    <div class="horizontal horizontal-spacing"><img src="@Model.Cover" alt="@Model.Title"/></div>
+    <div class="horizontal horizontal-spacing">
         <h3>@Model.Title</h3>
-        
-        <div>by @Html.ActionLink(Model.Author.Name, "Author", new {id = Model.Author.Id})</div>
-        <div style="height: 20px"></div>
-        <div><b>$ @Model.Price</b></div>
+        <div>by @Html.ActionLink(Model.Author.Name, "Author", new { id = Model.Author.Id })</div>
         <div class="vertical-space"></div>
+        
+        <div class="price-big-container">
+            <div class="horizontal price-big">@Html.Partial("_PricePartial", Model.Price)</div>
+            <div class="button horizontal">
+                @Ajax.ActionLink("Add to cart", "Add", "ShoppingCart", new { id = Model.Id },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        OnSuccess = String.Format("toastr.success('\"{0}\" added to cart')", Model.Title),
+                        OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", Model.Title),
+                    })
+            </div>
+        </div>
+        <div class="vertical-space"></div>
+        
         <div><b>Publisher:</b> @Model.Publisher.Name</div>
         <div class="vertical-space"></div>
-        <div class="vertical-space"></div>
+        
         <div><b>Description:</b> @Model.Description</div>
     </div>
     <div class="horizontal"></div>

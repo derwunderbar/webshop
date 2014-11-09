@@ -266,7 +266,9 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
-    <Content Include="Scripts\Views\toastr-customization.js" />
+    <Content Include="Scripts\Views\Common\catalog.js" />
+    <Content Include="Scripts\Views\Common\pager.js" />
+    <Content Include="Scripts\Views\Common\toastr-customization.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -349,6 +351,8 @@
     <None Include="Content\toastr.less" />
     <None Include="Content\toastr.scss" />
     <None Include="Scripts\toastr.min.js.map" />
+    <Content Include="Views\Shared\DisplayTemplates\Single.cshtml" />
+    <Content Include="Views\Shared\_PricePartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
@@ -366,7 +370,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>3090</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>

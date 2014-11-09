@@ -9,7 +9,7 @@ body {
     border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-family: Verdana, Helvetica, "Segoe UI", Sans-Serif;
     margin: 0;
     padding: 0;
 }
@@ -99,7 +99,7 @@ h5, h6 {
 #body {
     background-color: #efeeef;
     clear: both;
-    padding-bottom: 35px;
+    padding-bottom: 12px;
 }
 
     .main-content {
@@ -604,38 +604,93 @@ td.total-row {
     /* books
     ----------------------------------------------------------*/
 
-    .bookSmall>div {
-        padding-left: 3px;
-        padding-right: 3px;
-    }
+.bookSmall {
+    display: inline-block;
+    width: 150px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+}
     
-    .bookSmall {
-        display: inline-block;
-        width: 150px;
-        padding-top: 6px;
-        padding-bottom: 6px;
-    }
+.bookSmall > div {
+    padding-left: 3px;
+    padding-right: 3px;
+}
     
-    .horizontal {
-        display: inline-block;
-        vertical-align: top;
-        padding-left: 6px;
-        padding-right: 6px;
-    }
+.bookSmall > div > div {
+    margin: 6px 0px;
+}
     
-    .highlight {
-        color: #E47911;
-    }
+.horizontal {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.horizontal-spacing {
+    padding: 0px 6px;
+}
+
+.highlight {
+    color: #E47911;
+}
     
-    .block-title {
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
+.block-title {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
     
-    .vertical-space {
-        height: 20px;
-    }
+.vertical-space {
+    height: 20px;
+}
     
+div.button a {
+    font-size: 0.9em;
+}
+    
+.ui-button-text {
+    padding: 0.2em 0.6em !important;
+}
+
+
+.add-to-cart {
+    background: none repeat-x scroll 50% 50% #77ff66 !important;
+    border: 1px solid #00dd00 !important;
+}
+
+.add-to-cart:hover {
+    background: none repeat-x scroll 50% 50% #99ff88 !important;
+    border: 1px solid #009900 !important;
+}
+
+.price-big-container {
+    line-height: 24px;
+}
+
+.price-big {
+    font-size: 1.8em;
+}
+
+span.price-unit {
+    margin-right: 2px;
+}
+
+
+div.pager {
+    padding-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+div.pager > div {
+    padding: 2px;
+    display: inline-block;
+}
+
+div.pager > div > a, div.pager > div > span {
+    margin: 0 2px;
+}
+
     
     /*
     img:hover{

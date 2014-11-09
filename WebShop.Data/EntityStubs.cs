@@ -13,7 +13,7 @@ namespace WebShop.Data
                 {
                     Id = 1,
                     Title = "Dependency Injection in .NET",
-                    Price = 19.0f,
+                    Price = 19.20f,
                     ThumbImage = "dependency-injection-in-dotnet.jpg",
                     TitleImage = "dependency-injection-in-dotnet.jpg",
                 },
@@ -29,7 +29,7 @@ namespace WebShop.Data
                 {
                     Id = 3,
                     Title = "Professional Test Driven Development",
-                    Price = 24.0f,
+                    Price = 24.85f,
                     ThumbImage = "test-driven-development-with-c-sharp.jpg",
                     TitleImage = "test-driven-development-with-c-sharp.jpg",
                 },

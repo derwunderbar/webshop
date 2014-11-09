@@ -5,10 +5,14 @@
 
 @section styles {
     @Styles.Render("~/Content/toastr")
+    @Styles.Render("~/Content/themes/base/css")
 }
 
 @section scripts {
     @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/catalog.js")
+    @Scripts.Render("~/Scripts/Views/Common/pager.js")
 }
 
 <div id="content-container">

@@ -3,6 +3,18 @@
     ViewBag.Title = Model.Name;
 }
 
+@section styles {
+    @Styles.Render("~/Content/toastr")
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/catalog.js")
+    @Scripts.Render("~/Scripts/Views/Common/catalog.js")
+}
+
 <div id="content-container">
     <div class="block-title">
         <h4>Books by <span class="highlight">@Model.Name</span></h4>

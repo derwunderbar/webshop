@@ -6,18 +6,21 @@
 {
     <div class="bookSmall">
         <div>
-            @Html.ImageActionLink( book.Cover, "Details", "Catalog", new RouteValueDictionary( new { id = book.Id } ) )
+            @Html.ImageActionLink(book.Cover, "Details", "Catalog", new RouteValueDictionary(new { id = book.Id }))
             <div>
-                @Html.ActionLink( book.Title, "Details", "Catalog", new { id = book.Id }, null )
+                @Html.ActionLink(book.Title, "Details", "Catalog", new { id = book.Id }, null)
             </div>
             <div>
-                @Ajax.ActionLink( "Add to cart", "Add", "ShoppingCart", new { id = book.Id },
+                @Html.Partial( "_PricePartial", book.Price )
+            </div>
+            <div class="button">
+                @Ajax.ActionLink("Add to cart", "Add", "ShoppingCart", new { id = book.Id },
                     new AjaxOptions()
                     {
-                        HttpMethod = "POST", 
-                        OnSuccess = String.Format( "toastr.success('\"{0}\" added to cart')", book.Title ),
-                        OnFailure = String.Format( "toastr.error('Adding \"{0}\" to cart failed')", book.Title ),
-                    } )
+                        HttpMethod = "POST",
+                        OnSuccess = String.Format("toastr.success('\"{0}\" added to cart')", book.Title),
+                        OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", book.Title),
+                    })
             </div>
         </div>
     </div>

@@ -1,7 +1,11 @@
 ﻿@model WebShop.ViewModels.PagedEnumerableViewModel<WebShop.Services.Models.Book>
 
-@Html.Partial( "_BookListViewPartial", Model.Items )
-
 <div>
-    @Html.Pager( Model.PageSize, Model.PageNumber, Model.TotalItemsCount ).Options( a => a.Action( "Index" ) )
+    @Html.Partial("_BookListViewPartial", Model.Items)
+</div>
+
+<div class="pager">
+    <div>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemsCount).Options(a => a.Action("Index"))
+    </div>
 </div>

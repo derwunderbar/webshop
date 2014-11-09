@@ -24,7 +24,7 @@
                 @Html.ActionLink( item.Title, "Details", "Catalog", new { id = item.Id }, null )
             </td>
             <td class="number-alignment">
-                $ @item.Price
+                @Html.Partial("_PricePartial", item.Price)
             </td>
             <td class="number-alignment">
                 @item.Count
@@ -35,7 +35,7 @@
         </tr>
     }
     <tr>
-        <td colspan="3" class="total-row"><b>Subtotal (@Model.TotalItems items): $ @Model.TotalPrice</b></td>
+        <td colspan="3" class="total-row"><b>Subtotal (@Model.TotalItems items): @Html.Partial("_PricePartial", Model.TotalPrice)</b></td>
         <td></td>
     </tr>
 </table>
