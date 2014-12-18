@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace WebShop.Services.Models
 {
@@ -32,6 +33,20 @@ namespace WebShop.Services.Models
             {
                 shoppingCartItem.Count++;
             }
+        }
+
+        public void Remove( int id )
+        {
+            var shoppingCartItem = Items.SingleOrDefault(a => a.Id == id);
+            if( shoppingCartItem == null )
+                throw new InvalidOperationException();
+
+            if(shoppingCartItem.Count == 0)
+                throw new InvalidOperationException();
+
+            shoppingCartItem.Count--;
+            if( shoppingCartItem.Count == 0 )
+                Items = Items.Where(a => a.Id != id).ToArray();
         }
     }
 

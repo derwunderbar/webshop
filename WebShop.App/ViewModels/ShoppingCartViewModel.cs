@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using WebShop.Controllers;
 
 namespace WebShop.ViewModels
 {
