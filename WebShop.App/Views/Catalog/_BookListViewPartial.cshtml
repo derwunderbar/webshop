@@ -18,7 +18,7 @@
                     new AjaxOptions()
                     {
                         HttpMethod = "POST",
-                        OnSuccess = String.Format("toastr.success('\"{0}\" added to cart')", book.Title),
+                        OnSuccess = "addShoppingCartItem",
                         OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", book.Title),
                     })
             </div>

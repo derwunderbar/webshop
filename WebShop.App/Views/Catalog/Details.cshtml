@@ -11,6 +11,7 @@
 @section scripts {
     @Scripts.Render("~/bundles/toastr")
     @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/shopping-cart-status.js")
     @Scripts.Render("~/Scripts/Views/Common/catalog.js")
 }
 
@@ -28,7 +29,7 @@
                     new AjaxOptions()
                     {
                         HttpMethod = "POST",
-                        OnSuccess = String.Format("toastr.success('\"{0}\" added to cart')", Model.Title),
+                        OnSuccess = "addShoppingCartItem",
                         OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", Model.Title),
                     })
             </div>

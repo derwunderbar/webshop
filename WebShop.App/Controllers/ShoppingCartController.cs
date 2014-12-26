@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using WebShop.Data;
 using WebShop.Services;
@@ -32,6 +31,13 @@ namespace WebShop.Controllers
                 : View( "IndexEmpty" );
 
             return view;
+        }
+
+        public ActionResult Status()
+        {
+            var shoppingCart = _shoppingCartProvider.Get();
+            var totalCount = shoppingCart.TotalItems;
+            return PartialView("_Status", totalCount );
         }
 
         [HttpPost]

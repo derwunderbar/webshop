@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace WebShop.Services.Models
@@ -10,9 +11,15 @@ namespace WebShop.Services.Models
             Items = new ShoppingCartItem[0];
         }
 
+
         public ShoppingCartItem[] Items { get; set; }
 
-        public int TotalItems { get; set; }
+        public int TotalItems
+        {
+            [DebuggerStepThrough]
+            get { return Items != null ? Items.Sum(a => a.Count) : 0; }
+        }
+
 
         public void Add( int id )
         {
@@ -48,12 +55,5 @@ namespace WebShop.Services.Models
             if( shoppingCartItem.Count == 0 )
                 Items = Items.Where(a => a.Id != id).ToArray();
         }
-    }
-
-    public class ShoppingCartItem
-    {
-        public int Id { get; set; }
-
-        public int Count { get; set; }
     }
 }

@@ -22,4 +22,6 @@ function updateShoppingCart(shoppingCartUpdate, messageSuffix) {
 
     var title = $('[title]', row).attr('title');
     toastr.success('"' + title + '" ' + messageSuffix);
+
+    updateShoppingCartStatus(shoppingCartUpdate.TotalItems);
 }

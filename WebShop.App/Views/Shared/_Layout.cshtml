@@ -23,7 +23,7 @@
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Catalog", "Index", "Catalog")</li>
-                            <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+                            <li>@{Html.RenderAction("Status", "ShoppingCart");}</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
