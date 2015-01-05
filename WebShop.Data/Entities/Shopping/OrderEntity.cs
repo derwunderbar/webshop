@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebShop.Data.Entities.Profile;
@@ -20,6 +21,8 @@ namespace WebShop.Data.Entities.Shopping
 
         public virtual CustomerEntity Customer { get; set; }
 
+        public virtual List<OrderLineEntity> OrderLines { get; set; }
+
         public float SubTotal { get; set; }
 
         public float Vat { get; set; }
@@ -31,5 +34,10 @@ namespace WebShop.Data.Entities.Shopping
         public bool IsActive { get; set; }
 
         public DateTime? Closed { get; set; }
+
+        public OrderEntity()
+        {
+            OrderLines = new List<OrderLineEntity>();
+        }
     }
 }

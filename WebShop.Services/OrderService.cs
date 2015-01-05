@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using WebShop.Data.Entities.Shopping;
 using WebShop.Data.Repositories.Shopping;
@@ -27,12 +26,13 @@ namespace WebShop.Services
         {
             var customerEntity = Mapper.Map<CustomerEntity>(customer);
             customerEntity.UserId = order.UserId;
-            var customerUpd = _customerRepository.Create(customerEntity);
+            _customerRepository.Create(customerEntity);
 
             var orderEntity = Mapper.Map<OrderEntity>(order);
-            orderEntity.CustomerId = customerUpd.Id;
-            var orderLineEntities = order.Lines.Select(a => Mapper.Map<OrderLineEntity>(a)).ToArray();
-            _orderRepository.Create(orderEntity, orderLineEntities);
+            orderEntity.CustomerId = customerEntity.Id;
+            var orderLineEntities = order.Lines.Select(a => Mapper.Map<OrderLineEntity>(a));
+            orderEntity.OrderLines.AddRange(orderLineEntities);
+            _orderRepository.Create(orderEntity);
         }
     }
 }

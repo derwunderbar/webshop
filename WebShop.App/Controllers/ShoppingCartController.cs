@@ -255,7 +255,7 @@ namespace WebShop.Controllers
         }
 
 
-        private CustomerViewModel GetCustomerViewModel(CustomerViewModel customerVm = null)
+        private static CustomerViewModel GetCustomerViewModel(CustomerViewModel customerVm = null)
         {
 #if TESTING
             return customerVm

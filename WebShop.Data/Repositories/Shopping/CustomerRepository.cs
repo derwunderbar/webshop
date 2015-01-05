@@ -4,18 +4,17 @@ namespace WebShop.Data.Repositories.Shopping
 {
     public interface ICustomerRepository
     {
-        CustomerEntity Create(CustomerEntity customer);
+        void Create(CustomerEntity customerEntity);
     }
 
     public class CustomerRepository : ICustomerRepository
     {
-        public CustomerEntity Create(CustomerEntity customer)
+        public void Create(CustomerEntity customerEntity)
         {
             using( var context = new ShoppingContext() )
             {
-                context.Customers.Add(customer);
+                context.Customers.Add(customerEntity);
                 context.SaveChanges();
-                return customer;
             }
         }
     }
