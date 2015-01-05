@@ -26,6 +26,7 @@ namespace WebShop.Filters
             public SimpleMembershipInitializer()
             {
                 Database.SetInitializer<UsersContext>( null );
+                Database.SetInitializer<ShoppingContext>( null );
 
                 try
                 {

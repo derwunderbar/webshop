@@ -5,11 +5,21 @@ namespace WebShop.Data.Repositories
 {
     public interface IUserRepository
     {
+        UserProfileEntity Get( string userName );
+
         bool AddIfNotExists(string userName);
     }
 
     public class UserRepository : IUserRepository
     {
+        public UserProfileEntity Get(string userName)
+        {
+            using( var context = new UsersContext() )
+            {
+                return context.UserProfiles.SingleOrDefault(a => a.UserName.ToLower() == userName.ToLower());
+            }
+        }
+
         public bool AddIfNotExists(string userName)
         {
             using( var context = new UsersContext() )

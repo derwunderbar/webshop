@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using WebShop.Data.Entities.Shopping;
 using WebShop.Data.Repositories.Shopping;
@@ -16,7 +17,7 @@ namespace WebShop.Services
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerRepository _customerRepository;
 
-        public OrderService( IOrderRepository orderRepository, ICustomerRepository customerRepository )
+        public OrderService(IOrderRepository orderRepository, ICustomerRepository customerRepository)
         {
             _orderRepository = orderRepository;
             _customerRepository = customerRepository;
@@ -26,10 +27,10 @@ namespace WebShop.Services
         {
             var customerEntity = Mapper.Map<CustomerEntity>(customer);
             customerEntity.UserId = order.UserId;
-            var customerId = _customerRepository.Create(customerEntity);
+            var customerUpd = _customerRepository.Create(customerEntity);
 
             var orderEntity = Mapper.Map<OrderEntity>(order);
-            orderEntity.CustomerId = customerId;
+            orderEntity.CustomerId = customerUpd.Id;
             var orderLineEntities = order.Lines.Select(a => Mapper.Map<OrderLineEntity>(a)).ToArray();
             _orderRepository.Create(orderEntity, orderLineEntities);
         }

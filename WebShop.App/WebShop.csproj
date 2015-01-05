@@ -180,6 +180,7 @@
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Errors\ExceptionFactory.cs" />
     <Compile Include="Errors\ModelErrors.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />

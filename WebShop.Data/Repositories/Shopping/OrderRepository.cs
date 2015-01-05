@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using WebShop.Data.Entities.Shopping;
 
 namespace WebShop.Data.Repositories.Shopping
@@ -12,8 +12,20 @@ namespace WebShop.Data.Repositories.Shopping
     {
         public void Create(OrderEntity order, OrderLineEntity[] lines)
         {
-            // todo: create order record
-            // todo: create order line records using order id
+            using( var context = new ShoppingContext() )
+            {
+                context.Orders.Add(order);
+                context.SaveChanges();
+
+                foreach( var orderLine in lines )
+                {
+                    orderLine.OrderId = order.Id;
+                    context.OrderLines.Add(orderLine);
+                }
+
+                if( lines.Any() )
+                    context.SaveChanges();
+            }
         }
     }
 }

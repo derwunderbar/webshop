@@ -26,7 +26,8 @@ namespace WebShop
 
         public static void RegisterModelEntityMappings()
         {
-            Mapper.CreateMap<OrderModel, OrderEntity>();
+            Mapper.CreateMap<OrderModel, OrderEntity>()
+                .ForMember(d => d.UserId, o => o.ResolveUsing(s => s.UserId));
             Mapper.CreateMap<OrderLineModel, OrderLineEntity>();
             Mapper.CreateMap<CustomerModel, CustomerEntity>();
         }

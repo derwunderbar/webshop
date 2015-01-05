@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -6,6 +7,7 @@ using Microsoft.Web.Mvc;
 using WebShop.Data.Repositories;
 using WebShop.Data.Repositories.Shopping;
 using WebShop.Errors;
+using WebShop.Filters;
 using WebShop.Services;
 using WebShop.Services.Catalog;
 using WebShop.Services.Models.Shopping;
@@ -19,6 +21,7 @@ namespace WebShop.Controllers
         private readonly IShoppingCartProvider _shoppingCartProvider;
         private readonly IBookService _bookService;
         private readonly IOrderService _orderService;
+        private readonly IUserRepository _userRepository;
         private readonly IApplicationConfig _appConfig;
 
 
@@ -27,6 +30,7 @@ namespace WebShop.Controllers
             _shoppingCartProvider = new ShoppingCartProvider(() => Session);
             _bookService = new BookService(new BookRepository());
             _orderService = new OrderService(new OrderRepository(), new CustomerRepository());
+            _userRepository = new UserRepository();
             _appConfig = new ApplicationConfig();
         }
 
@@ -35,10 +39,10 @@ namespace WebShop.Controllers
         {
             var shoppingCart = _shoppingCartProvider.Get();
             var shoppingCartVm = GetShoppingCartViewModel(shoppingCart.Items);
-            
+
             var view = shoppingCartVm.Items.Any()
-                ? View( shoppingCartVm )
-                : View( "IndexEmpty" );
+                ? View(shoppingCartVm)
+                : View("IndexEmpty");
 
             return view;
         }
@@ -126,6 +130,7 @@ namespace WebShop.Controllers
 
         [HttpPost]
         [Authorize]
+        [InitializeSimpleMembership]
         public ActionResult CheckoutSubmit(CustomerViewModel customer, [Deserialize] CheckoutViewModel checkoutVm)
         {
             if( ModelState.IsValid )
@@ -134,7 +139,12 @@ namespace WebShop.Controllers
                 if( IsShoppingCartChanged(checkoutVm, customer, out checkoutWizardUpdate) )
                     return View("CheckoutOverview", checkoutWizardUpdate);
 
-                var orderModel = GetOrderModel(checkoutVm);
+                var user = _userRepository.Get(User.Identity.Name);
+                if( user == null )
+                    throw ExceptionFactory.GetInvalidUserException(User.Identity.Name);
+
+                var orderModel = Mapper.Map<OrderModel>(checkoutVm);
+                orderModel.UserId = user.UserId;
                 var customerModel = Mapper.Map<CustomerModel>(customer);
                 _orderService.Create(orderModel, customerModel);
                 
@@ -147,7 +157,7 @@ namespace WebShop.Controllers
             var checkoutWizardVm = new CheckoutWizardViewModel()
             {
                 ShoppingCart = checkoutVm,
-                Customer = customer
+                Customer = customer,
             };
             return View("CheckoutCustomer", checkoutWizardVm);
         }
@@ -242,13 +252,6 @@ namespace WebShop.Controllers
                 },
                 Customer = customerVm,
             };
-        }
-
-        private OrderModel GetOrderModel(CheckoutViewModel checkoutVm)
-        {
-            var orderModel = Mapper.Map<OrderModel>(checkoutVm);
-            orderModel.UserId = User.Identity.Name;
-            return orderModel;
         }
     }
 }
