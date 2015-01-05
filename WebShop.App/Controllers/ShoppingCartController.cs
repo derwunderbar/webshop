@@ -72,30 +72,18 @@ namespace WebShop.Controllers
         public ActionResult CheckoutOverview()
         {
             var shoppingCart = _shoppingCartProvider.Get();
-            var checkoutVm = new CheckoutViewModel(_appConfig.VatPercents)
-            {
-                Items = GetShoppingCartItemViewModels(shoppingCart.Items).ToList(),
-            };
-            return View(checkoutVm);
+            var checkoutWizardVm = GetCheckoutWizardViewModel(shoppingCart.Items);
+            return View(checkoutWizardVm);
         }
 
         [HttpPost]
-        public ActionResult CheckoutOverview([Deserialize] CheckoutViewModel checkoutVm)
+        public ActionResult CheckoutOverview([Deserialize] CheckoutViewModel checkoutVm, [Deserialize] CustomerViewModel customerVm)
         {
             if( ModelState.IsValid )
             {
-                // Ensure there are no changes to shopping cart
-                var shoppingCart = _shoppingCartProvider.Get();
-                var shoppingCartEqualityComparer = new ShoppingCartEqualityComparer();
-                if( !shoppingCartEqualityComparer.Equals(shoppingCart, checkoutVm) )
-                {
-                    ModelState.AddModelError(string.Empty, ModelErrors.ShoppingCartWasChanged);
-                    var newCheckoutVm = new CheckoutViewModel(_appConfig.VatPercents)
-                    {
-                        Items = GetShoppingCartItemViewModels(shoppingCart.Items).ToList(),
-                    };
-                    return View(newCheckoutVm);
-                }
+                CheckoutWizardViewModel checkoutWizardUpdate;
+                if( IsShoppingCartChanged(checkoutVm, customerVm, out checkoutWizardUpdate) )
+                    return View(checkoutWizardUpdate);
 
                 if( !User.Identity.IsAuthenticated )
                 {
@@ -107,14 +95,17 @@ namespace WebShop.Controllers
                 var checkoutWizardVm = new CheckoutWizardViewModel()
                 {
                     ShoppingCart = checkoutVm,
-                    Customer = new CustomerViewModel(),
+                    Customer = customerVm,
                 };
                 return View("CheckoutCustomer", checkoutWizardVm);
             }
-            else
+
+            var checkoutWizardVm2 = new CheckoutWizardViewModel()
             {
-                return View(checkoutVm);
-            }
+                ShoppingCart = checkoutVm,
+                Customer = customerVm,
+            };
+            return View(checkoutWizardVm2);
         }
 
         [Authorize]
@@ -136,20 +127,22 @@ namespace WebShop.Controllers
         {
             if( ModelState.IsValid )
             {
+                CheckoutWizardViewModel checkoutWizardUpdate;
+                if( IsShoppingCartChanged(checkoutVm, customer, out checkoutWizardUpdate) )
+                    return View("CheckoutOverview", checkoutWizardUpdate);
+
                 // todo: register order and customer
                 // todo: clean-up shopping cart
 
                 return RedirectToAction("ThankYou");
             }
-            else
+            
+            var checkoutWizardVm = new CheckoutWizardViewModel()
             {
-                var checkoutWizardVm = new CheckoutWizardViewModel()
-                {
-                    ShoppingCart = checkoutVm,
-                    Customer = customer
-                };
-                return View("CheckoutCustomer", checkoutWizardVm);
-            }
+                ShoppingCart = checkoutVm,
+                Customer = customer
+            };
+            return View("CheckoutCustomer", checkoutWizardVm);
         }
 
         public ActionResult ThankYou()
@@ -157,6 +150,21 @@ namespace WebShop.Controllers
             return View();
         }
 
+
+        private bool IsShoppingCartChanged(CheckoutViewModel checkoutVm, CustomerViewModel customer, out CheckoutWizardViewModel checkoutWizardVm)
+        {
+            var shoppingCart = _shoppingCartProvider.Get();
+            var shoppingCartEqualityComparer = new ShoppingCartEqualityComparer();
+            if( !shoppingCartEqualityComparer.Equals(shoppingCart, checkoutVm) )
+            {
+                ModelState.AddModelError(string.Empty, ModelErrors.ShoppingCartWasChanged);
+                checkoutWizardVm = GetCheckoutWizardViewModel(shoppingCart.Items, customer);
+                return true;
+            }
+
+            checkoutWizardVm = null;
+            return false;
+        }
 
         private IEnumerable<ShoppingCartItemViewModel> GetShoppingCartItemViewModels( ShoppingCartItem[] shoppingCartItems )
         {
@@ -214,6 +222,18 @@ namespace WebShop.Controllers
             };
 
             return shoppingCartUpdate;
+        }
+
+        private CheckoutWizardViewModel GetCheckoutWizardViewModel(ShoppingCartItem[] shoppingCartItems, CustomerViewModel customerVm = null)
+        {
+            return new CheckoutWizardViewModel()
+            {
+                ShoppingCart = new CheckoutViewModel(_appConfig.VatPercents)
+                {
+                    Items = GetShoppingCartItemViewModels(shoppingCartItems).ToList(),
+                },
+                Customer = customerVm,
+            };
         }
     }
 }

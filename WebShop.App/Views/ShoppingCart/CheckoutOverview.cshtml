@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Web.Mvc
-@model WebShop.ViewModels.CheckoutViewModel
+@model WebShop.ViewModels.CheckoutWizardViewModel
 
 @{
     ViewBag.Title = "Checkout";
@@ -22,14 +22,18 @@
     @using( Html.BeginForm("CheckoutOverview", "ShoppingCart", new { }, FormMethod.Post) ) {
         @Html.ValidationSummary(true)
 
-        @Html.Partial("_CheckoutShoppingCartOverview", Model)
+        @Html.Partial("_CheckoutShoppingCartOverview", Model.ShoppingCart)
+
+        if( Model.Customer != null ) {
+            @Html.Serialize("customerVm", Model.Customer)
+        }
 
         <div class="vertical-space"></div>
 
         <fieldset>
             <legend>Checkout Overview</legend>
             <div>
-                @Html.Serialize("checkoutVm", Model)
+                @Html.Serialize("checkoutVm", Model.ShoppingCart)
             </div>
                 
             <div class="page-buttons form-buttons">
