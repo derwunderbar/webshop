@@ -97,6 +97,13 @@ namespace WebShop.Controllers
                     return View(newCheckoutVm);
                 }
 
+                if( !User.Identity.IsAuthenticated )
+                {
+                    var modelCrossRequestProvider = new ModelCrossRequestProvider(TempData);
+                    modelCrossRequestProvider.Set(checkoutVm);
+                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("CheckoutCustomer") });
+                }
+
                 var checkoutWizardVm = new CheckoutWizardViewModel()
                 {
                     ShoppingCart = checkoutVm,
@@ -110,7 +117,21 @@ namespace WebShop.Controllers
             }
         }
 
+        [Authorize]
+        public ActionResult CheckoutCustomer()
+        {
+            var modelCrossRequestProvider = new ModelCrossRequestProvider(TempData);
+            var checkoutVm = modelCrossRequestProvider.Get<CheckoutViewModel>();
+            var checkoutWizardVm = new CheckoutWizardViewModel()
+            {
+                ShoppingCart = checkoutVm,
+                Customer = new CustomerViewModel(),
+            };
+            return View(checkoutWizardVm);
+        }
+
         [HttpPost]
+        [Authorize]
         public ActionResult CheckoutSubmit(CustomerViewModel customer, [Deserialize] CheckoutViewModel checkoutVm)
         {
             if( ModelState.IsValid )

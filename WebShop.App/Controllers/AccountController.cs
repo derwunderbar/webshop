@@ -20,6 +20,7 @@ namespace WebShop.Controllers
         // GET: /Account/Login
 
         [AllowAnonymous]
+        [ModelCrossRequestTransfer]
         public ActionResult Login( string returnUrl )
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -32,6 +33,7 @@ namespace WebShop.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [ModelCrossRequestTransfer]
         public ActionResult Login( LoginModel model, string returnUrl )
         {
             if( ModelState.IsValid && WebSecurity.Login( model.UserName, model.Password, persistCookie: model.RememberMe ) )
@@ -41,6 +43,7 @@ namespace WebShop.Controllers
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError( "", "The user name or password provided is incorrect." );
+            ViewBag.ReturnUrl = returnUrl;
             return View( model );
         }
 
@@ -60,8 +63,10 @@ namespace WebShop.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register()
+        [ModelCrossRequestTransfer]
+        public ActionResult Register( string returnUrl )
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -71,7 +76,8 @@ namespace WebShop.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register( RegisterModel model )
+        [ModelCrossRequestTransfer]
+        public ActionResult Register( RegisterModel model, string returnUrl )
         {
             if( ModelState.IsValid )
             {
@@ -80,7 +86,7 @@ namespace WebShop.Controllers
                 {
                     WebSecurity.CreateUserAndAccount( model.UserName, model.Password );
                     WebSecurity.Login( model.UserName, model.Password );
-                    return RedirectToAction( "Index", "Home" );
+                    return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction( "Index", "Home" );
                 }
                 catch( MembershipCreateUserException e )
                 {
@@ -89,6 +95,7 @@ namespace WebShop.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            ViewBag.ReturnUrl = returnUrl;
             return View( model );
         }
 

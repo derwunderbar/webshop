@@ -176,11 +176,13 @@
     <Compile Include="Errors\ModelErrors.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Filters\ModelCrossRequestTransferAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ExplicitFileOrderer.cs" />
     <Compile Include="Utilities\ImageUrlProvider.cs" />
+    <Compile Include="Utilities\ModelCrossRequestProvider.cs" />
     <Compile Include="Utilities\ShoppingCartEqualityComparer.cs" />
     <Compile Include="Utilities\ShoppingCartProvider.cs" />
     <Compile Include="Utilities\UrlHelpers.cs" />

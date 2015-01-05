@@ -4,12 +4,20 @@
     ViewBag.Title = "Log in";
 }
 
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/form.js")
+}
+
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h3>@ViewBag.Title</h3>
 </hgroup>
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -32,19 +40,14 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Log in" />
+
+        <div class="page-buttons form-buttons">
+            <input type="submit" value="Log in" />
+        </div>
     </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
 }
-</section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div class="vertical-space"></div>
+<p>
+    @Html.ActionLink( "Register", "Register", new { ReturnUrl = ViewBag.ReturnUrl } ) if you don't have an account.
+</p>
