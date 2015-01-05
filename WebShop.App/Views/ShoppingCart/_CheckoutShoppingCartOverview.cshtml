@@ -1,0 +1,48 @@
+﻿@model WebShop.ViewModels.CheckoutViewModel
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th class="number-alignment">
+            Quantity
+        </th>
+        <th class="number-alignment">
+            Price
+        </th>
+    </tr>
+    
+    @foreach( var item in Model.Items ) {
+        <tr id="@item.Id">
+            <td title="@item.Title">
+                @Html.ActionLink(item.Title, "Details", "Catalog", new { id = item.Id }, null)
+            </td>
+            <td class="center-alignment quantity">
+                <span class="quantity">@item.Count</span>
+            </td>
+            <td class="number-alignment">
+                @Html.Partial("_PricePartial", item.Price)
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="vertical-space"></div>
+
+<table>
+    <tr>
+        <td class="label">SubTotal:</td>
+        <td>@Html.Partial("_PricePartial", Model.SubTotal)</td>
+    </tr>
+    <tr>
+        <td class="label">VAT:</td>
+        <td>@Html.Partial("_PricePartial", Model.Vat)</td>
+    </tr>
+    <tr>
+        <td class="label">Total:</td>
+        <td class="number-alignment">
+            @Html.Partial("_PricePartial", Model.Total)
+        </td>
+    </tr>
+</table>

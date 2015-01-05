@@ -1,7 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Web.Mvc;
 
 namespace WebShop.ViewModels
 {
+    [Serializable]
+    [Bind(Exclude = "TotalPrice")]
     public class ShoppingCartItemViewModel
     {
         public int Id { get; set; }

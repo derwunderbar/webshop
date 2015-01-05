@@ -1,0 +1,40 @@
+﻿@using Microsoft.Web.Mvc
+@model WebShop.ViewModels.CheckoutViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/form.js")
+}
+
+<div class="page-title">
+    <h3>@ViewBag.Title: articles overview</h3>
+</div>
+
+<div>
+    @using( Html.BeginForm("CheckoutOverview", "ShoppingCart", new { }, FormMethod.Post) ) {
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CheckoutShoppingCartOverview", Model)
+
+        <div class="vertical-space"></div>
+
+        <fieldset>
+            <legend>Checkout Overview</legend>
+            <div>
+                @Html.Serialize("checkoutVm", Model)
+            </div>
+                
+            <div class="page-buttons form-buttons">
+                <input type="submit" value="Next"/>
+            </div>
+        </fieldset>
+    }
+</div>

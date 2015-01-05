@@ -340,10 +340,6 @@ aside {
             padding: 2px 0 2px 20px;
         }
 
-.label {
-    font-weight: 700;
-}
-
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;
@@ -356,16 +352,7 @@ aside {
         margin-left: 15px;
     }
 
-    #loginForm .validation-summary-errors ul {
-        margin: 0;
-        padding: 0;
-    }
-
-    #loginForm .validation-summary-errors li {
-        display: inline;
-        list-style: none;
-        margin: 0;
-    }
+    
 
     #loginForm input {
         width: 250px;
@@ -432,8 +419,6 @@ fieldset {
 
 label {
     display: block;
-    font-size: 1.2em;
-    font-weight: 600;
 }
 
 label.checkbox {
@@ -444,7 +429,6 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
-    font-size: 1.2em;
     margin: 5px 0 6px 0;
     padding: 5px;
     width: 300px;
@@ -465,18 +449,7 @@ textarea {
         width: auto;
     }
 
-    input[type="submit"],
-    input[type="button"],
-    button {
-        background-color: #d3dce0;
-        border: 1px solid #787878;
-        cursor: pointer;
-        font-size: 1.2em;
-        font-weight: 600;
-        padding: 7px;
-        margin-right: 8px;
-        width: auto;
-    }
+    
 
     td input[type="submit"],
     td input[type="button"],
@@ -536,6 +509,17 @@ input[type="checkbox"].input-validation-error {
     font-size: 1.1em;
 }
 
+.validation-summary-errors ul {
+    margin: 0;
+    padding: 0;
+}
+
+.validation-summary-errors li {
+    display: inline;
+    list-style: none;
+    margin: 0;
+}
+
 .validation-summary-valid {
     display: none;
 }
@@ -544,6 +528,8 @@ input[type="checkbox"].input-validation-error {
 /* tables
 ----------------------------------------------------------*/
 table {
+    position: relative;
+    left: -22px; /* shift back th/td left/right padding */
     border-collapse: collapse;
     border-spacing: 0;
     margin-top: 0.75em;
@@ -551,10 +537,9 @@ table {
 }
 
 th {
-    font-size: 1.2em;
     text-align: left;
     border: none 0px;
-    padding: 2px 22px 14px;
+    padding: 2px 22px 6px;
 }
 
     th a {
@@ -598,7 +583,7 @@ td {
     border: 0 none;
 }
 
-tr.pager td {
+tr.page-buttons td {
     padding: 0 0.25em 0 0;
 }
 
@@ -652,10 +637,18 @@ td.total-row {
 .highlight {
     color: #E47911;
 }
-    
-.block-title {
+
+.page-title {
     padding-top: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 8px;    
+}
+
+.block-title {
+}
+
+.label {
+    font-weight: 700;
+    font-weight: bold;
 }
     
 .vertical-space {
@@ -669,7 +662,6 @@ div.button a {
 .ui-button-text {
     padding: 0.2em 0.6em !important;
 }
-
 
 .add-to-cart {
     background: none repeat-x scroll 50% 50% #77ff66 !important;
@@ -693,23 +685,38 @@ span.price-unit {
     margin-right: 2px;
 }
 
+div.shopping-cart-container {
+    display: inline-block;
+}
 
-div.pager {
+.shopping-cart-container th {
+    font-size: 1.2em;
+}
+
+div.page-buttons {
     padding-top: 8px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-div.pager > div {
+div.page-buttons > div {
     padding: 2px;
     display: inline-block;
 }
 
-div.pager > div > a, div.pager > div > span {
+div.page-buttons > div > a, div.page-buttons > div > span {
     margin: 0 2px;
 }
 
+.form-buttons {
+    width: 300px;
+    margin-left: 0px !important;
+}
+.form-buttons input[type="submit"] {
+    width: auto;
+    padding: 0.2em 0.6em !important;
+}
     
     /*
     img:hover{

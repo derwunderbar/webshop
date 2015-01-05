@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Microsoft.Web.Mvc;
 using WebShop.Data;
+using WebShop.Errors;
 using WebShop.Services;
 using WebShop.Services.Models;
 using WebShop.Utilities;
@@ -12,12 +17,14 @@ namespace WebShop.Controllers
     {
         private readonly ShoppingCartProvider _shoppingCartProvider;
         private readonly BookService _bookService;
+        private readonly IApplicationConfig _appConfig;
 
 
         public ShoppingCartController()
         {
             _shoppingCartProvider = new ShoppingCartProvider( () => Session );
             _bookService = new BookService( new BookRepository() );
+            _appConfig = new ApplicationConfig();
         }
 
 
@@ -40,6 +47,7 @@ namespace WebShop.Controllers
             return PartialView("_Status", totalCount );
         }
 
+
         [HttpPost]
         public ActionResult Add(int id)
         {
@@ -60,9 +68,77 @@ namespace WebShop.Controllers
             return Json( shoppingCartUpdate, JsonRequestBehavior.AllowGet );
         }
 
-        private ShoppingCartViewModel GetShoppingCartViewModel(ShoppingCartItem[] shoppingCartItems)
+
+        public ActionResult CheckoutOverview()
         {
-            var shoppingCartViewModel = new ShoppingCartViewModel();
+            var shoppingCart = _shoppingCartProvider.Get();
+            var checkoutVm = new CheckoutViewModel(_appConfig.VatPercents)
+            {
+                Items = GetShoppingCartItemViewModels(shoppingCart.Items).ToList(),
+            };
+            return View(checkoutVm);
+        }
+
+        [HttpPost]
+        public ActionResult CheckoutOverview([Deserialize] CheckoutViewModel checkoutVm)
+        {
+            if( ModelState.IsValid )
+            {
+                // Ensure there are no changes to shopping cart
+                var shoppingCart = _shoppingCartProvider.Get();
+                var shoppingCartEqualityComparer = new ShoppingCartEqualityComparer();
+                if( !shoppingCartEqualityComparer.Equals(shoppingCart, checkoutVm) )
+                {
+                    ModelState.AddModelError(string.Empty, ModelErrors.ShoppingCartWasChanged);
+                    var newCheckoutVm = new CheckoutViewModel(_appConfig.VatPercents)
+                    {
+                        Items = GetShoppingCartItemViewModels(shoppingCart.Items).ToList(),
+                    };
+                    return View(newCheckoutVm);
+                }
+
+                var checkoutWizardVm = new CheckoutWizardViewModel()
+                {
+                    ShoppingCart = checkoutVm,
+                    Customer = new CustomerViewModel(),
+                };
+                return View("CheckoutCustomer", checkoutWizardVm);
+            }
+            else
+            {
+                return View(checkoutVm);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CheckoutSubmit(CustomerViewModel customer, [Deserialize] CheckoutViewModel checkoutVm)
+        {
+            if( ModelState.IsValid )
+            {
+                // todo: register order and customer
+                // todo: clean-up shopping cart
+
+                return RedirectToAction("ThankYou");
+            }
+            else
+            {
+                var checkoutWizardVm = new CheckoutWizardViewModel()
+                {
+                    ShoppingCart = checkoutVm,
+                    Customer = customer
+                };
+                return View("CheckoutCustomer", checkoutWizardVm);
+            }
+        }
+
+        public ActionResult ThankYou()
+        {
+            return View();
+        }
+
+
+        private IEnumerable<ShoppingCartItemViewModel> GetShoppingCartItemViewModels( ShoppingCartItem[] shoppingCartItems )
+        {
             if( shoppingCartItems.Any() )
             {
                 var books = _bookService.Get( shoppingCartItems.Select( a => a.Id ).ToArray() );
@@ -79,10 +155,18 @@ namespace WebShop.Controllers
                         };
                     } );
 
-                shoppingCartViewModel.Items = shoppingCartItemViewModels.ToArray();
+                return shoppingCartItemViewModels;
             }
 
-            return shoppingCartViewModel;
+            return Enumerable.Empty<ShoppingCartItemViewModel>();
+        }
+
+        private ShoppingCartViewModel GetShoppingCartViewModel(ShoppingCartItem[] shoppingCartItems)
+        {
+            return new ShoppingCartViewModel()
+            {
+                Items = GetShoppingCartItemViewModels(shoppingCartItems).ToArray(),
+            };
         }
 
         private ShoppingCartUpdateViewModel GetShoppingCartUpdate(ShoppingCartItem[] shoppingCartItems, int updatedItemId)

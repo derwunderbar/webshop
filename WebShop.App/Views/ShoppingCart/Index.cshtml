@@ -6,76 +6,83 @@
 
 @section styles {
     @Styles.Render("~/Content/toastr")
+    @Styles.Render("~/Content/themes/base/css")
 }
 
 @section scripts {
     @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/Scripts/Views/Common/shopping-cart-status.js")
     @Scripts.Render("~/Scripts/Views/ShoppingCart/index.js")
 }
-
-<table>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th class="number-alignment">
-            Quantity
-        </th>
-        <th class="number-alignment">
-            Price
-        </th>
-        <th class="number-alignment">
-            Subtotal
-        </th>
-        <th></th>
-    </tr>
-    @foreach( var item in Model.Items ) 
-    {
-        <tr id="@item.Id">
-            <td title="@item.Title">
-                @Html.ActionLink( item.Title, "Details", "Catalog", new { id = item.Id }, null )
+<div class="shopping-cart-container">
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th class="number-alignment">
+                Quantity
+            </th>
+            <th class="number-alignment">
+                Price
+            </th>
+            <th class="number-alignment">
+                Subtotal
+            </th>
+            <th></th>
+        </tr>
+        @foreach( var item in Model.Items ) 
+        {
+            <tr id="@item.Id">
+                <td title="@item.Title">
+                    @Html.ActionLink( item.Title, "Details", "Catalog", new { id = item.Id }, null )
+                </td>
+                <td class="center-alignment quantity">
+                    <span>
+                        @Ajax.ActionLink( "—", "Remove", "ShoppingCart", new { id = item.Id },
+                            new AjaxOptions()
+                            {
+                                HttpMethod = "POST",
+                                OnSuccess = String.Format( "removeShoppingCartItem" ),
+                                OnFailure = String.Format("toastr.error('Removing \"{0}\" from cart failed')", item.Title),
+                            },
+                            new { @class = "ajax-link" })
+                    </span>
+                    <span class="quantity">@item.Count</span>
+                    <span>
+                        @Ajax.ActionLink( "+", "Add", "ShoppingCart", new { id = item.Id },
+                            new AjaxOptions()
+                            {
+                                HttpMethod = "POST",
+                                OnSuccess = String.Format( "addShoppingCartItem" ),
+                                OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", item.Title),
+                            },
+                            new { @class = "ajax-link" })
+                    </span>
+                </td>
+                <td class="number-alignment">
+                    @Html.Partial("_PricePartial", item.Price)
+                </td>
+                <td class="number-alignment sub-total">
+                    @Html.Partial("_PricePartial", item.TotalPrice)
+                </td>
+                <td>
+                    @*@Ajax.ActionLink( "Remove", "Remove", new { id = item.Id }, new AjaxOptions() { HttpMethod = "POST" } )*@
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3" class="total-row">
+                <b>Total (<span class="items-number">@Model.TotalItems</span> items): </b>
             </td>
-            <td class="center-alignment quantity">
-                <span>
-                    @Ajax.ActionLink( "—", "Remove", "ShoppingCart", new { id = item.Id },
-                        new AjaxOptions()
-                        {
-                            HttpMethod = "POST",
-                            OnSuccess = String.Format( "removeShoppingCartItem" ),
-                            OnFailure = String.Format("toastr.error('Removing \"{0}\" from cart failed')", item.Title),
-                        },
-                        new { @class = "ajax-link" })
-                </span>
-                <span class="quantity">@item.Count</span>
-                <span>
-                    @Ajax.ActionLink( "+", "Add", "ShoppingCart", new { id = item.Id },
-                        new AjaxOptions()
-                        {
-                            HttpMethod = "POST",
-                            OnSuccess = String.Format( "addShoppingCartItem" ),
-                            OnFailure = String.Format("toastr.error('Adding \"{0}\" to cart failed')", item.Title),
-                        },
-                        new { @class = "ajax-link" })
-                </span>
-            </td>
-            <td class="number-alignment">
-                @Html.Partial("_PricePartial", item.Price)
-            </td>
-            <td class="number-alignment sub-total">
-                @Html.Partial("_PricePartial", item.TotalPrice)
-            </td>
-            <td>
-                @*@Ajax.ActionLink( "Remove", "Remove", new { id = item.Id }, new AjaxOptions() { HttpMethod = "POST" } )*@
+            <td class="total-row">
+                <b>@Html.Partial("_PricePartial", Model.TotalPrice)</b>
             </td>
         </tr>
-    }
-    <tr>
-        <td colspan="3" class="total-row">
-            <b>Total (<span class="items-number">@Model.TotalItems</span> items): </b>
-        </td>
-        <td class="total-row">
-            <b>@Html.Partial("_PricePartial", Model.TotalPrice)</b>
-        </td>
-    </tr>
-</table>
+    </table>
+    <div class="page-buttons">
+        <div class="page-button">@Html.ActionLink("Checkout", "CheckoutOverview")</div>
+        <div class="page-button">@Html.ActionLink("Continue shopping", "Index", "Catalog")</div>
+    </div>
+</div>

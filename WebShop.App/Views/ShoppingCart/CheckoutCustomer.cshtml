@@ -1,0 +1,35 @@
+﻿@using Microsoft.Web.Mvc
+@model WebShop.ViewModels.CheckoutWizardViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/Views/Common/form.js")
+}
+
+<div class="page-title">
+    <h3>@ViewBag.Title: customer registration</h3>
+</div>
+
+@using( Html.BeginForm("CheckoutSubmit", "ShoppingCart", new { }, FormMethod.Post) ) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Checkout Customer</legend>
+                
+        @Html.Serialize("checkoutVm", Model.ShoppingCart)
+                
+        @Html.EditorFor(a => a.Customer)
+                
+        <div class="page-buttons form-buttons">
+            <input id="submit" type="submit" value="Checkout"/>
+        </div>
+    </fieldset>
+}

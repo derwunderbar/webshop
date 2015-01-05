@@ -1,4 +1,8 @@
 ﻿
+$(function () {
+    $('div.page-button > a').button();
+});
+
 function addShoppingCartItem(shoppingCartUpdate) {
     updateShoppingCart(shoppingCartUpdate, 'added to cart');
 }

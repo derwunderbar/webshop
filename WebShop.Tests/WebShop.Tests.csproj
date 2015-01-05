@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DB91BD1A-484B-4B78-8539-820940F36F11}</ProjectGuid>
+    <ProjectGuid>{918E7368-5CD7-4BF1-A04F-0AFC04619742}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebShop.Services</RootNamespace>
-    <AssemblyName>WebShop.Services</AssemblyName>
+    <RootNamespace>WebShop.Tests</RootNamespace>
+    <AssemblyName>WebShop.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,31 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorService.cs" />
-    <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\AuthorDetails.cs" />
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookDetails.cs" />
-    <Compile Include="BookService.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
-    <Compile Include="Models\ShoppingCartItem.cs" />
-    <Compile Include="Models\ShoppingCartItemsEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Publisher.cs" />
-    <Compile Include="Models\PublisherDetails.cs" />
+    <Compile Include="Services\Models\ShoppingCartItemsEqualityComparerTests.cs" />
+    <Compile Include="Services\Models\ShoppingCartItemTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj">
-      <Project>{4931AF72-9FBA-4BA7-932D-50E64213B072}</Project>
-      <Name>WebShop.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebShop.Data\WebShop.Data.csproj">
-      <Project>{D4943698-DD7E-48A7-8FA7-47FB53B6FC9B}</Project>
-      <Name>WebShop.Data</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebShop.Services\WebShop.Services.csproj">
+      <Project>{DB91BD1A-484B-4B78-8539-820940F36F11}</Project>
+      <Name>WebShop.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
