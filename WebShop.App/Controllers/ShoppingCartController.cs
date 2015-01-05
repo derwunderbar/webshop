@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.Web.Mvc;
 using WebShop.Data.Repositories;
+using WebShop.Data.Repositories.Shopping;
 using WebShop.Errors;
+using WebShop.Services;
 using WebShop.Services.Catalog;
 using WebShop.Services.Models.Shopping;
 using WebShop.Utilities;
@@ -15,13 +18,15 @@ namespace WebShop.Controllers
     {
         private readonly IShoppingCartProvider _shoppingCartProvider;
         private readonly IBookService _bookService;
+        private readonly IOrderService _orderService;
         private readonly IApplicationConfig _appConfig;
 
 
         public ShoppingCartController()
         {
-            _shoppingCartProvider = new ShoppingCartProvider( () => Session );
-            _bookService = new BookService( new BookRepository() );
+            _shoppingCartProvider = new ShoppingCartProvider(() => Session);
+            _bookService = new BookService(new BookRepository());
+            _orderService = new OrderService(new OrderRepository(), new CustomerRepository());
             _appConfig = new ApplicationConfig();
         }
 
@@ -129,8 +134,12 @@ namespace WebShop.Controllers
                 if( IsShoppingCartChanged(checkoutVm, customer, out checkoutWizardUpdate) )
                     return View("CheckoutOverview", checkoutWizardUpdate);
 
-                // todo: register order and customer
-                // todo: clean-up shopping cart
+                var orderModel = GetOrderModel(checkoutVm);
+                var customerModel = Mapper.Map<CustomerModel>(customer);
+                _orderService.Create(orderModel, customerModel);
+                
+                var shoppingCart = _shoppingCartProvider.Get();
+                shoppingCart.Clear();
 
                 return RedirectToAction("ThankYou");
             }
@@ -163,6 +172,7 @@ namespace WebShop.Controllers
             checkoutWizardVm = null;
             return false;
         }
+
 
         private IEnumerable<ShoppingCartItemViewModel> GetShoppingCartItemViewModels( ShoppingCartItem[] shoppingCartItems )
         {
@@ -232,6 +242,13 @@ namespace WebShop.Controllers
                 },
                 Customer = customerVm,
             };
+        }
+
+        private OrderModel GetOrderModel(CheckoutViewModel checkoutVm)
+        {
+            var orderModel = Mapper.Map<OrderModel>(checkoutVm);
+            orderModel.UserId = User.Identity.Name;
+            return orderModel;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace WebShop.Filters
 
                 try
                 {
+                    // todo: introduce highlevel abstraction instead of direct context access
                     using( var context = new UsersContext() )
                     {
                         if( !context.Database.Exists() )

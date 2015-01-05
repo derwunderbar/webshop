@@ -55,5 +55,10 @@ namespace WebShop.Services.Models.Shopping
             if( shoppingCartItem.Count == 0 )
                 Items = Items.Where(a => a.Id != id).ToArray();
         }
+
+        public void Clear()
+        {
+            Items = new ShoppingCartItem[0];
+        }
     }
 }

@@ -77,5 +77,21 @@ namespace WebShop.Tests.Services.Models
 
             Assert.That(() => shoppingCart.Remove(1), Throws.Exception.TypeOf<InvalidOperationException>());
         }
+
+        [Test]
+        public void Clear_RemovesAllItems()
+        {
+            // Arrange
+            var shoppingCart = new ShoppingCart();
+            shoppingCart.Add( 1 );
+            shoppingCart.Add( 1 );
+            shoppingCart.Add( 2 );
+
+            // Act
+            shoppingCart.Clear();
+
+            // Verify
+            Assert.That( shoppingCart.Items, Is.Empty );
+        }
     }
 }
