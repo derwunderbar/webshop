@@ -65,8 +65,11 @@
     <Compile Include="Models\Shopping\ShoppingCart.cs" />
     <Compile Include="Models\Shopping\ShoppingCartItem.cs" />
     <Compile Include="Models\Shopping\ShoppingCartItemsEqualityComparer.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceFactory.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj">

@@ -6,14 +6,15 @@ namespace WebShop.Data
     public class ShoppingContext : DbContext
     {
         public ShoppingContext()
-            : base( "DefaultConnection" )
-        {}
+            : base("DefaultConnection")
+        {
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrderEntity>().HasMany(e => e.OrderLines);
             modelBuilder.Entity<OrderLineEntity>().HasRequired(e => e.Order).WithMany(e => e.OrderLines);
-            
+
             base.OnModelCreating(modelBuilder);
         }
 

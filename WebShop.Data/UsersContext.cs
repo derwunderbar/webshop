@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using WebShop.Data.Entities.Profile;
-using WebShop.Data.Entities.Shopping;
 
 namespace WebShop.Data
 {
@@ -8,7 +7,7 @@ namespace WebShop.Data
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base( "DefaultConnection" )
+            : base("DefaultConnection")
         {
         }
 

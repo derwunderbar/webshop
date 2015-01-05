@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Web.Mvc;
-using WebShop.Data.Repositories;
-using WebShop.Data.Repositories.Shopping;
 using WebShop.Errors;
 using WebShop.Filters;
 using WebShop.Services;
@@ -21,17 +18,17 @@ namespace WebShop.Controllers
         private readonly IShoppingCartProvider _shoppingCartProvider;
         private readonly IBookService _bookService;
         private readonly IOrderService _orderService;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IApplicationConfig _appConfig;
 
 
-        public ShoppingCartController()
+        public ShoppingCartController(IServiceFactory serviceFactory, IApplicationConfig appConfig)
         {
             _shoppingCartProvider = new ShoppingCartProvider(() => Session);
-            _bookService = new BookService(new BookRepository());
-            _orderService = new OrderService(new OrderRepository(), new CustomerRepository());
-            _userRepository = new UserRepository();
-            _appConfig = new ApplicationConfig();
+            _bookService = serviceFactory.GetBookService();
+            _orderService = serviceFactory.GetOrderService();
+            _userService = serviceFactory.GetUserService();
+            _appConfig = appConfig;
         }
 
 
@@ -139,7 +136,7 @@ namespace WebShop.Controllers
                 if( IsShoppingCartChanged(checkoutVm, customer, out checkoutWizardUpdate) )
                     return View("CheckoutOverview", checkoutWizardUpdate);
 
-                var user = _userRepository.Get(User.Identity.Name);
+                var user = _userService.Get(User.Identity.Name);
                 if( user == null )
                     throw ExceptionFactory.GetInvalidUserException(User.Identity.Name);
 

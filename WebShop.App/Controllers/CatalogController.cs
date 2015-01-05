@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebShop.Data.Repositories;
+using WebShop.Services;
 using WebShop.Services.Catalog;
 using WebShop.Services.Models.Catalog;
 using WebShop.Utilities;
@@ -15,11 +15,11 @@ namespace WebShop.Controllers
         private readonly IAuthorService _authorService;
         private readonly IApplicationConfig _appConfig;
 
-        public CatalogController()
+        public CatalogController(IServiceFactory serviceFactory, IApplicationConfig appConfig)
         {
-            _bookService = new BookService( new BookRepository() );
-            _authorService = new AuthorService( new AuthorRepository() );
-            _appConfig = new ApplicationConfig();
+            _bookService = serviceFactory.GetBookService();
+            _authorService = serviceFactory.GetAuthorService();
+            _appConfig = appConfig;
         }
 
         public ActionResult Index( int? page )

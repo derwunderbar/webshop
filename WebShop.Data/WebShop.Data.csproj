@@ -77,6 +77,7 @@
     <Compile Include="Repositories\Shopping\CustomerRepository.cs" />
     <Compile Include="Repositories\Shopping\OrderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="RepositoryFactory.cs" />
     <Compile Include="ShoppingContext.cs" />
     <Compile Include="UsersContext.cs" />
   </ItemGroup>

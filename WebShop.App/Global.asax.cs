@@ -20,6 +20,8 @@ namespace WebShop
             BundleConfig.RegisterBundles( BundleTable.Bundles );
             AuthConfig.RegisterAuth();
 
+            Bootstrapper.Initialise();
+
             AutoMapperConfig.RegisterMappings();
         }
     }

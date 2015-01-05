@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using WebShop.Data.Entities.Profile;
 using WebShop.Data.Entities.Shopping;
+using WebShop.Services.Models;
 using WebShop.Services.Models.Shopping;
 using WebShop.ViewModels.Shopping;
 
@@ -30,6 +32,7 @@ namespace WebShop
                 .ForMember(d => d.UserId, o => o.ResolveUsing(s => s.UserId));
             Mapper.CreateMap<OrderLineModel, OrderLineEntity>();
             Mapper.CreateMap<CustomerModel, CustomerEntity>();
+            Mapper.CreateMap<UserProfileEntity, UserProfile>();
         }
     }
 }

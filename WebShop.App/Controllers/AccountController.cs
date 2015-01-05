@@ -8,6 +8,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using WebShop.Data.Repositories;
 using WebShop.Filters;
+using WebShop.Services;
 using WebShop.ViewModels.Account;
 
 namespace WebShop.Controllers
@@ -16,11 +17,11 @@ namespace WebShop.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
-            _userRepository = new UserRepository();
+            _userService = userService;
         }
 
         //
@@ -275,7 +276,7 @@ namespace WebShop.Controllers
 
             if( ModelState.IsValid )
             {
-                var added = _userRepository.AddIfNotExists(model.UserName);
+                var added = _userService.AddIfNotExists(model.UserName);
                 if( added )
                 {
                     OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
