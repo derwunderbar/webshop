@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebShop.Data;
-using WebShop.Services;
-using WebShop.Services.Models;
+using WebShop.Data.Repositories;
+using WebShop.Services.Catalog;
+using WebShop.Services.Models.Catalog;
 using WebShop.Utilities;
-using WebShop.ViewModels;
+using WebShop.ViewModels.Catalog;
 
 namespace WebShop.Controllers
 {

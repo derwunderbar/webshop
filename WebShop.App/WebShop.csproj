@@ -186,17 +186,21 @@
     <Compile Include="Utilities\ShoppingCartEqualityComparer.cs" />
     <Compile Include="Utilities\ShoppingCartProvider.cs" />
     <Compile Include="Utilities\UrlHelpers.cs" />
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BookDetailsViewModel.cs" />
-    <Compile Include="ViewModels\CheckoutViewModel.cs" />
-    <Compile Include="ViewModels\CheckoutWizardViewModel.cs" />
-    <Compile Include="ViewModels\CustomerViewModel.cs" />
-    <Compile Include="ViewModels\PagedEnumerableViewModel.cs" />
-    <Compile Include="ViewModels\PageViewModel.cs" />
-    <Compile Include="ViewModels\ShoppingCartItemViewModel.cs" />
-    <Compile Include="ViewModels\ShoppingCartUpdateViewModel.cs" />
-    <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
+    <Compile Include="ViewModels\Account\ExternalLoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\LocalPasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterExternalLoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\BookDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\PagedEnumerableViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\PageViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\CheckoutViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\CheckoutWizardViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\ShoppingCartItemViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\ShoppingCartUpdateViewModel.cs" />
+    <Compile Include="ViewModels\Shopping\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\WebShop.mdf" />
@@ -375,7 +379,9 @@
     <Content Include="Views\ShoppingCart\EditorTemplates\Customer.cshtml" />
     <Content Include="Views\ShoppingCart\_CheckoutShoppingCartOverview.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -35,18 +35,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorService.cs" />
-    <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\AuthorDetails.cs" />
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookDetails.cs" />
-    <Compile Include="BookService.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
-    <Compile Include="Models\ShoppingCartItem.cs" />
-    <Compile Include="Models\ShoppingCartItemsEqualityComparer.cs" />
+    <Compile Include="Catalog\AuthorService.cs" />
+    <Compile Include="Catalog\BookService.cs" />
+    <Compile Include="Models\Catalog\Author.cs" />
+    <Compile Include="Models\Catalog\AuthorDetails.cs" />
+    <Compile Include="Models\Catalog\Book.cs" />
+    <Compile Include="Models\Catalog\BookDetails.cs" />
+    <Compile Include="Models\Catalog\Publisher.cs" />
+    <Compile Include="Models\Catalog\PublisherDetails.cs" />
+    <Compile Include="Models\Shopping\ShoppingCart.cs" />
+    <Compile Include="Models\Shopping\ShoppingCartItem.cs" />
+    <Compile Include="Models\Shopping\ShoppingCartItemsEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Publisher.cs" />
-    <Compile Include="Models\PublisherDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj">
@@ -58,6 +58,7 @@
       <Name>WebShop.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

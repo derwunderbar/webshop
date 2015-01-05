@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Web;
-using WebShop.Services.Models;
+using WebShop.Services.Models.Shopping;
 
 namespace WebShop.Utilities
 {
-    public class ShoppingCartProvider
+    public interface IShoppingCartProvider
+    {
+        ShoppingCart Get();
+    }
+
+    public class ShoppingCartProvider : IShoppingCartProvider
     {
         private const string ShoppingCartKey = "shoppingCart";
 

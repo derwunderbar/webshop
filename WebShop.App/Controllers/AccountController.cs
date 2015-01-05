@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
+using WebShop.Data.Repositories;
 using WebShop.Filters;
-using WebShop.Models;
+using WebShop.ViewModels.Account;
 
 namespace WebShop.Controllers
 {
@@ -16,6 +16,13 @@ namespace WebShop.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private readonly IUserRepository _userRepository;
+
+        public AccountController()
+        {
+            _userRepository = new UserRepository();
+        }
+
         //
         // GET: /Account/Login
 
@@ -34,7 +41,7 @@ namespace WebShop.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ModelCrossRequestTransfer]
-        public ActionResult Login( LoginModel model, string returnUrl )
+        public ActionResult Login( LoginViewModel model, string returnUrl )
         {
             if( ModelState.IsValid && WebSecurity.Login( model.UserName, model.Password, persistCookie: model.RememberMe ) )
             {
@@ -77,7 +84,7 @@ namespace WebShop.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ModelCrossRequestTransfer]
-        public ActionResult Register( RegisterModel model, string returnUrl )
+        public ActionResult Register( RegisterViewModel model, string returnUrl )
         {
             if( ModelState.IsValid )
             {
@@ -148,7 +155,7 @@ namespace WebShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage( LocalPasswordModel model )
+        public ActionResult Manage( LocalPasswordViewModel model )
         {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount( WebSecurity.GetUserId( User.Identity.Name ) );
             ViewBag.HasLocalPassword = hasLocalAccount;
@@ -246,7 +253,7 @@ namespace WebShop.Controllers
                 string loginData = OAuthWebSecurity.SerializeProviderUserId( result.Provider, result.ProviderUserId );
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData( result.Provider ).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
-                return View( "ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData } );
+                return View( "ExternalLoginConfirmation", new RegisterExternalLoginViewModel { UserName = result.UserName, ExternalLoginData = loginData } );
             }
         }
 
@@ -256,44 +263,35 @@ namespace WebShop.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation( RegisterExternalLoginModel model, string returnUrl )
+        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginViewModel model, string returnUrl)
         {
             string provider = null;
             string providerUserId = null;
 
-            if( User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId( model.ExternalLoginData, out provider, out providerUserId ) )
+            if( User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId) )
             {
-                return RedirectToAction( "Manage" );
+                return RedirectToAction("Manage");
             }
 
             if( ModelState.IsValid )
             {
-                // Insert a new user into the database
-                using( UsersContext db = new UsersContext() )
+                var added = _userRepository.AddIfNotExists(model.UserName);
+                if( added )
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault( u => u.UserName.ToLower() == model.UserName.ToLower() );
-                    // Check if user already exists
-                    if( user == null )
-                    {
-                        // Insert name into the profile table
-                        db.UserProfiles.Add( new UserProfile { UserName = model.UserName } );
-                        db.SaveChanges();
+                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        OAuthWebSecurity.CreateOrUpdateAccount( provider, providerUserId, model.UserName );
-                        OAuthWebSecurity.Login( provider, providerUserId, createPersistentCookie: false );
-
-                        return RedirectToLocal( returnUrl );
-                    }
-                    else
-                    {
-                        ModelState.AddModelError( "UserName", "User name already exists. Please enter a different user name." );
-                    }
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
                 }
             }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData( provider ).DisplayName;
+            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
-            return View( model );
+            return View(model);
         }
 
         //
@@ -317,12 +315,12 @@ namespace WebShop.Controllers
         public ActionResult RemoveExternalLogins()
         {
             ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName( User.Identity.Name );
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
+            List<ExternalLoginViewModel> externalLogins = new List<ExternalLoginViewModel>();
             foreach( OAuthAccount account in accounts )
             {
                 AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData( account.Provider );
 
-                externalLogins.Add( new ExternalLogin
+                externalLogins.Add( new ExternalLoginViewModel
                 {
                     Provider = account.Provider,
                     ProviderDisplayName = clientData.DisplayName,

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using WebShop.Services.Models;
+using WebShop.Services.Models.Shopping;
 
 namespace WebShop.Tests.Services.Models
 {

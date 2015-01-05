@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using WebShop.Services.Models;
-using WebShop.ViewModels;
+using WebShop.Services.Models.Shopping;
+using WebShop.ViewModels.Shopping;
 
 namespace WebShop.Utilities
 {

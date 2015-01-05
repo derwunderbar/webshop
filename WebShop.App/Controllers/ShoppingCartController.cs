@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Microsoft.Web.Mvc;
-using WebShop.Data;
+using WebShop.Data.Repositories;
 using WebShop.Errors;
-using WebShop.Services;
-using WebShop.Services.Models;
+using WebShop.Services.Catalog;
+using WebShop.Services.Models.Shopping;
 using WebShop.Utilities;
-using WebShop.ViewModels;
+using WebShop.ViewModels.Shopping;
 
 namespace WebShop.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private readonly ShoppingCartProvider _shoppingCartProvider;
-        private readonly BookService _bookService;
+        private readonly IShoppingCartProvider _shoppingCartProvider;
+        private readonly IBookService _bookService;
         private readonly IApplicationConfig _appConfig;
 
 
