@@ -102,7 +102,7 @@ namespace WebShop.Controllers
                 var checkoutWizardVm = new CheckoutWizardViewModel()
                 {
                     ShoppingCart = checkoutVm,
-                    Customer = customerVm,
+                    Customer = GetCustomerViewModel(customerVm),
                 };
                 return View("CheckoutCustomer", checkoutWizardVm);
             }
@@ -123,7 +123,7 @@ namespace WebShop.Controllers
             var checkoutWizardVm = new CheckoutWizardViewModel()
             {
                 ShoppingCart = checkoutVm,
-                Customer = new CustomerViewModel(),
+                Customer = GetCustomerViewModel(),
             };
             return View(checkoutWizardVm);
         }
@@ -250,8 +250,29 @@ namespace WebShop.Controllers
                 {
                     Items = GetShoppingCartItemViewModels(shoppingCartItems).ToList(),
                 },
-                Customer = customerVm,
+                Customer = GetCustomerViewModel(customerVm),
             };
+        }
+
+
+        private CustomerViewModel GetCustomerViewModel(CustomerViewModel customerVm = null)
+        {
+#if TESTING
+            return customerVm
+                ?? new CustomerViewModel()
+                {
+                    Title = "Good-Company",
+                    FirstName = "John",
+                    LastName = "Johnson",
+                    Email = "john_johnson@good_company.com",
+                    City = "City",
+                    Address = "Address",
+                    HouseNumber = "10",
+                    ZipCode = "12121-1234",
+                };
+#endif
+
+            return customerVm ?? new CustomerViewModel();
         }
     }
 }
