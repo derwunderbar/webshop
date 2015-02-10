@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using WebShop.Data.Entities.Profile;
 
-namespace WebShop.Data
+namespace WebShop.Data.Contexts
 {
     // todo: don't expose outside, it should be internal
     public class UsersContext : DbContext

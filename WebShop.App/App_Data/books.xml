@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<catalog>
+  <books>
+    <item>
+      <id>1</id>
+      <title>C# in Depth, 3rd Edition</title>
+      <price>30.00</price>
+      <thumb-image>c-sharp-in-depth.jpg</thumb-image>
+      <title-image>c-sharp-in-depth.jpg</title-image>
+	  <description>If you're a .NET developer, you'll use C# whether you're building an advanced enterprise application or just slamming out a quick app. In C# 5, you can do amazing things with generics, lambda expressions, dynamic typing, LINQ, iterator blocks, and other features. But first you have to learn it in depth. </description>
+    </item>
+    <item>
+      <id>2</id>
+      <title>Professional Test Driven Development</title>
+      <price>24.65</price>
+      <thumb-image>test-driven-development-with-c-sharp.jpg</thumb-image>
+      <title-image>test-driven-development-with-c-sharp.jpg</title-image>
+	  <description>Test-driven development (TDD) practice helps developers recognize a well-designed application, and encourages writing a test before writing the functionality that needs to be implemented. This hands-on guide provides invaluable insight for creating successful test-driven development processes.</description>
+    </item>
+	<item>
+      <id>3</id>
+      <title>Dependency Injection in .NET</title>
+      <price>19.20</price>
+      <thumb-image>dependency-injection-in-dotnet.jpg</thumb-image>
+      <title-image>dependency-injection-in-dotnet.jpg</title-image>
+	  <description></description>
+    </item>
+  </books>
+</catalog>

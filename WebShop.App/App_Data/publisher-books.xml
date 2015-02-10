@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<catalog>
+  <publishers>
+    <item>
+      <id>1</id>
+      <name>Publisher-1</name>
+    </item>
+    <item>
+      <id>2</id>
+      <name>Publisher-2</name>
+    </item>
+  </publishers>
+  <book-publishers>
+    <item>
+      <book-id>1</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
+    <item>
+      <book-id>2</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>3</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+  </book-publishers>
+</catalog>

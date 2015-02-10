@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using WebShop.Data.Entities.Shopping;
 
-namespace WebShop.Data
+namespace WebShop.Data.Contexts
 {
     public class ShoppingContext : DbContext
     {

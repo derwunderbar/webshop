@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using WebShop.Data;
+using WebShop.Data.Contexts;
 
 namespace WebShop.Filters
 {

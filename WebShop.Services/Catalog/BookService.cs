@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebShop.Core.Collections.Generic;
 using WebShop.Data.Repositories;
@@ -17,6 +18,8 @@ namespace WebShop.Services.Catalog
 
     public class BookService : IBookService
     {
+        private const string DefaultDescription = "This book has no description yet.";
+
         private readonly IBookRepository _bookRepository;
 
 
@@ -78,7 +81,7 @@ namespace WebShop.Services.Catalog
                     Id = entity.Publisher.Id,
                     Name = entity.Publisher.Name,
                 },
-                Description = entity.Description,
+                Description = !String.IsNullOrEmpty(entity.Description) ? entity.Description : DefaultDescription,
             };
 
             return bookDetails;

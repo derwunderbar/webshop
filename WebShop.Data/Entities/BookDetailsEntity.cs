@@ -5,7 +5,5 @@ namespace WebShop.Data.Entities
         public AuthorEntity Author { get; set; }
 
         public PublisherEntity Publisher { get; set; }
-
-        public string Description { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using WebShop.Data.Contexts;
 using WebShop.Data.Entities.Profile;
 
 namespace WebShop.Data.Repositories

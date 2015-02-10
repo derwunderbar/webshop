@@ -1,4 +1,5 @@
-﻿using WebShop.Data.Entities.Shopping;
+﻿using WebShop.Data.Contexts;
+using WebShop.Data.Entities.Shopping;
 
 namespace WebShop.Data.Repositories.Shopping
 {
