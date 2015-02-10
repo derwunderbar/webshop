@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace WebShop.Data.Entities.XmlContainers
+namespace WebShop.Data.Entities.Catalog.XmlContainers
 {
     [XmlRoot("catalog")]
     public class PublisherBooksCatalog

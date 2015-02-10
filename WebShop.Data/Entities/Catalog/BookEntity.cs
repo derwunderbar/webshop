@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace WebShop.Data.Entities
+namespace WebShop.Data.Entities.Catalog
 {
     public class BookEntity
     {

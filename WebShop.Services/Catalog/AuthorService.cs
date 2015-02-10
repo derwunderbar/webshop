@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebShop.Data.Repositories;
+using WebShop.Data.Repositories.Catalog;
 using WebShop.Services.Models.Catalog;
 
 namespace WebShop.Services.Catalog

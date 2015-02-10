@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebShop.Core.Collections.Generic;
 using WebShop.Data.Repositories;
+using WebShop.Data.Repositories.Catalog;
 using WebShop.Services.Models.Catalog;
 
 namespace WebShop.Services.Catalog

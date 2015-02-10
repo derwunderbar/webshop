@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using WebShop.Data.Entities;
-using WebShop.Data.Entities.XmlContainers;
+using WebShop.Data.Entities.Catalog;
+using WebShop.Data.Entities.Catalog.XmlContainers;
 
 namespace WebShop.Data.Contexts
 {

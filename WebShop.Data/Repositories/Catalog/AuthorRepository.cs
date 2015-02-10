@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using WebShop.Data.Contexts;
-using WebShop.Data.Entities;
+using WebShop.Data.Entities.Catalog;
 
-namespace WebShop.Data.Repositories
+namespace WebShop.Data.Repositories.Catalog
 {
     public interface IAuthorRepository
     {

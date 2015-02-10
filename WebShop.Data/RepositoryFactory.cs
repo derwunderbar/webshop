@@ -1,4 +1,5 @@
 using WebShop.Data.Repositories;
+using WebShop.Data.Repositories.Catalog;
 using WebShop.Data.Repositories.Shopping;
 
 namespace WebShop.Data
