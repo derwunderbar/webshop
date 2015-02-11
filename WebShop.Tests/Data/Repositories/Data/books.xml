@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<catalog>
+  <books>
+    <item>
+      <id>1</id>
+      <title>C# in Depth</title>
+      <price>30.00</price>
+      <thumb-image>c-sharp-in-depth-thumb.jpg</thumb-image>
+      <title-image>c-sharp-in-depth.jpg</title-image>
+      <description>C# in Depth description</description>
+    </item>
+    <item>
+      <id>3</id>
+      <title>Dependency Injection in .NET</title>
+      <price>19.20</price>
+      <thumb-image>di-in-dotnet.jpg</thumb-image>
+      <title-image>di-in-dotnet.jpg</title-image>
+    </item>
+  </books>
+</catalog>

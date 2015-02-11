@@ -57,6 +57,7 @@
     <Compile Include="Contexts\CatalogContext.cs" />
     <Compile Include="Contexts\ShoppingContext.cs" />
     <Compile Include="Contexts\UsersContext.cs" />
+    <Compile Include="Contexts\Validation\ValidationSchemas.cs" />
     <Compile Include="Entities\Catalog\AuthorDetailsEntity.cs" />
     <Compile Include="Entities\Catalog\AuthorEntity.cs" />
     <Compile Include="Entities\Catalog\BookAuthorEntity.cs" />
@@ -97,6 +98,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EmbeddedResource Include="Contexts\Validation\ValidationSchemas\books.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contexts\Validation\ValidationSchemas\author-books.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contexts\Validation\ValidationSchemas\publisher-books.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

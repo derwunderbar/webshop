@@ -53,19 +53,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Repositories\CatalogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Models\ShoppingCartItemsEqualityComparerTests.cs" />
     <Compile Include="Services\Models\ShoppingCartItemTests.cs" />
     <Compile Include="Services\Models\ShoppingCartTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj">
+      <Project>{4931AF72-9FBA-4BA7-932D-50E64213B072}</Project>
+      <Name>WebShop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebShop.Data\WebShop.Data.csproj">
+      <Project>{D4943698-DD7E-48A7-8FA7-47FB53B6FC9B}</Project>
+      <Name>WebShop.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebShop.Services\WebShop.Services.csproj">
       <Project>{DB91BD1A-484B-4B78-8539-820940F36F11}</Project>
       <Name>WebShop.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Repositories\Data\books.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

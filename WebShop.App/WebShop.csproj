@@ -24,6 +24,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -232,6 +236,9 @@
     <Compile Include="ViewModels\Shopping\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\author-books.xml" />
+    <Content Include="App_Data\books.xml" />
+    <Content Include="App_Data\publisher-books.xml" />
     <Content Include="App_Data\WebShop.mdf" />
     <Content Include="App_Data\WebShop_log.ldf">
       <DependentUpon>WebShop.mdf</DependentUpon>
@@ -427,7 +434,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>3090</DevelopmentServerPort>
+          <DevelopmentServerPort>3091</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WebShop.Core.Collections.Generic;
 using WebShop.Data.Contexts;
-using WebShop.Data.Entities;
 using WebShop.Data.Entities.Catalog;
 
 namespace WebShop.Data.Repositories.Catalog
@@ -23,20 +21,12 @@ namespace WebShop.Data.Repositories.Catalog
         public IPagedEnumerable<BookEntity> Get(int page, int pageSize)
         {
             var context = new CatalogContext();
-            var books = context.GetBooks();
-            
-            var resultBooksForTitleUpdate = books.ToArray();
-            for (var i = 0; i < resultBooksForTitleUpdate.Length; i++)
-            {
-                var bookEntity = resultBooksForTitleUpdate[i];
-                bookEntity.Title = String.Format("{0} {1}", i + 1, bookEntity.Title);
-            }
-
-            books = resultBooksForTitleUpdate
+            var allBooks = context.GetBooks().ToArray();
+            var books = allBooks
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
 
-            var totalCount = resultBooksForTitleUpdate.Count();
+            var totalCount = allBooks.Count();
 
             return new PagedEnumerable<BookEntity>(books, totalCount);
         }

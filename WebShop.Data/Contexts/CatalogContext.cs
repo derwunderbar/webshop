@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
-using WebShop.Data.Entities;
+using WebShop.Data.Contexts.Validation;
 using WebShop.Data.Entities.Catalog;
 using WebShop.Data.Entities.Catalog.XmlContainers;
 
@@ -30,36 +33,36 @@ namespace WebShop.Data.Contexts
 
         public IEnumerable<BookEntity> GetBooks()
         {
-            var catalog = Get<BooksCatalog>(GetFilePath(_path, BooksPath));
+            var catalog = Get<BooksCatalog>(GetFilePath(_path, BooksPath), ValidationSchemas.Books);
             return catalog.Books;
         }
 
         public IEnumerable<AuthorEntity> GetAuthors()
         {
-            var catalog = Get<AuthorBooksCatalog>(GetFilePath(_path, AuthorBooksPath));
+            var catalog = Get<AuthorBooksCatalog>(GetFilePath(_path, AuthorBooksPath), ValidationSchemas.AuthorBooks);
             return catalog.Authors;
         }
 
         public IEnumerable<BookAuthorEntity> GetAuthorBooks()
         {
-            var catalog = Get<AuthorBooksCatalog>(GetFilePath(_path, AuthorBooksPath));
+            var catalog = Get<AuthorBooksCatalog>(GetFilePath(_path, AuthorBooksPath), ValidationSchemas.AuthorBooks);
             return catalog.BookAuthors;
         }
 
         public IEnumerable<PublisherEntity> GetPublishers()
         {
-            var catalog = Get<PublisherBooksCatalog>(GetFilePath(_path, PublisherBooksPath));
+            var catalog = Get<PublisherBooksCatalog>(GetFilePath(_path, PublisherBooksPath), ValidationSchemas.PublisherBooks);
             return catalog.Publishers;
         }
 
         public IEnumerable<BookPublisherEntity> GetPublisherBooks()
         {
-            var catalog = Get<PublisherBooksCatalog>(GetFilePath(_path, PublisherBooksPath));
+            var catalog = Get<PublisherBooksCatalog>(GetFilePath(_path, PublisherBooksPath), ValidationSchemas.PublisherBooks);
             return catalog.BookPublishers;
         }
 
 
-        private static T Get<T>(string path)
+        private static T Get<T>(string path, XmlSchema schema)
         {
             var physicalPath = path;
             if (physicalPath.Contains(DataDirectory))
@@ -71,17 +74,37 @@ namespace WebShop.Data.Contexts
                     throw new InvalidOperationException("DataDirectory is undefined");
             }
 
-            var serializer = new XmlSerializer(typeof (T));
-            using (var reader = new StreamReader(physicalPath))
+            using (var memoryStream = new MemoryStream(File.ReadAllBytes(physicalPath)))
             {
-                var result = (T) serializer.Deserialize(reader);
-                return result;
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(memoryStream);
+                EnsureIsValid(xmlDoc, schema);
+
+                var serializer = new XmlSerializer(typeof(T));
+                memoryStream.Position = 0;
+                using (var reader = new StreamReader(memoryStream))
+                {
+                    var result = (T)serializer.Deserialize(reader);
+                    return result;
+                }
             }
         }
 
         private static string GetFilePath(string directoryPath, string fileName)
         {
             return directoryPath.EndsWith(Path.DirectorySeparatorChar.ToString()) ? directoryPath + fileName : directoryPath + Path.DirectorySeparatorChar + fileName;
+        }
+
+        private static void EnsureIsValid(XmlDocument xmlDocument, XmlSchema schema)
+        {
+            xmlDocument.Schemas.Add(schema);
+            xmlDocument.Validate((sender, e) =>
+            {
+                if (e.Severity == XmlSeverityType.Error)
+                {
+                    throw new ValidationException(e.Message, e.Exception);
+                }
+            });
         }
     }
 }
