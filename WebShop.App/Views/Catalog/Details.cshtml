@@ -17,7 +17,7 @@
 
 <div id="content-container">
     <div class="horizontal horizontal-spacing"><img src="@Model.Cover" alt="@Model.Title"/></div>
-    <div class="horizontal horizontal-spacing">
+    <div class="horizontal horizontal-spacing details">
         <h3>@Model.Title</h3>
         <div>by @Html.ActionLink(Model.Author.Name, "Author", new { id = Model.Author.Id })</div>
         <div class="vertical-space"></div>

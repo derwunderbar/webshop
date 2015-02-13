@@ -657,6 +657,10 @@ div.top > div.space {
     padding: 0px 6px;
 }
 
+.details {
+    max-width: 530px;
+}
+
 .highlight {
     color: #E47911;
 }
