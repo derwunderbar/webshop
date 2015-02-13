@@ -609,23 +609,45 @@ td.total-row {
     /* books
     ----------------------------------------------------------*/
 
-.bookSmall {
+.book-small {
     display: inline-block;
     width: 150px;
     padding-top: 6px;
     padding-bottom: 6px;
     text-align: center;
+    vertical-align: top;
 }
-    
-.bookSmall > div {
+
+/* .book-small > div */
+.relative-upd {
+    position:relative;
+    height: 100%;
     padding-left: 3px;
     padding-right: 3px;
 }
-    
-.bookSmall > div > div {
+
+/* .book-small > div > div.bottom */
+.bottom-upd {
+    position: absolute;
+    bottom: 0em;
+    left: 0em;
+    right: 0em;
     margin: 6px 0px;
 }
-    
+
+div.title {
+    max-height: 53px;
+}
+
+div.top > div.thumb {
+    height: 150px;
+}
+
+div.top > div.space {
+    height: 10px;
+}
+
+   
 .horizontal {
     display: inline-block;
     vertical-align: top;
