@@ -44,5 +44,45 @@
       <book-id>3</book-id>
       <author-id>5</author-id>
     </item>
+    <item>
+      <book-id>4</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>5</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>6</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>7</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>8</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>9</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>10</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>11</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>12</book-id>
+      <author-id>2</author-id>
+    </item>
+    <item>
+      <book-id>13</book-id>
+      <author-id>2</author-id>
+    </item>
   </book-authors>
 </catalog>

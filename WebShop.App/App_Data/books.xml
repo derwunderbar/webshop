@@ -2,6 +2,13 @@
 <catalog>
   <books>
     <item>
+      <id>4</id>
+      <title>CLR via C#, 4th Edition</title>
+      <price>40.40</price>
+      <thumb-image>clr-via-c-sharp.jpg</thumb-image>
+      <title-image>clr-via-c-sharp.jpg</title-image>
+    </item>
+    <item>
       <id>1</id>
       <title>C# in Depth, 3rd Edition</title>
       <price>30.00</price>
@@ -18,11 +25,74 @@
       <description>Test-driven development (TDD) practice helps developers recognize a well-designed application, and encourages writing a test before writing the functionality that needs to be implemented. This hands-on guide provides invaluable insight for creating successful test-driven development processes.</description>
     </item>
     <item>
+      <id>8</id>
+      <title>Professional Parallel Programming with C#</title>
+      <price>30.50</price>
+      <thumb-image>prof-parallel-programming.jpg</thumb-image>
+      <title-image>prof-parallel-programming.jpg</title-image>
+    </item>
+    <item>
       <id>3</id>
       <title>Dependency Injection in .NET</title>
       <price>19.20</price>
       <thumb-image>dependency-injection-in-dotnet.jpg</thumb-image>
       <title-image>dependency-injection-in-dotnet.jpg</title-image>
+    </item>
+    <item>
+      <id>6</id>
+      <title>Pro ASP.NET MVC, 5th Edition</title>
+      <price>39.90</price>
+      <thumb-image>pro-asp-net-mvc-5.jpg</thumb-image>
+      <title-image>pro-asp-net-mvc-5.jpg</title-image>
+    </item>
+    <item>
+      <id>7</id>
+      <title>Under the Hood of .NET Memory Management</title>
+      <price>24.60</price>
+      <thumb-image>dot-net-memory-management.jpg</thumb-image>
+      <title-image>dot-net-memory-management.jpg</title-image>
+    </item>
+    <item>
+      <id>5</id>
+      <title>Pro C# 5.0 and the .NET 4.5 Framework</title>
+      <price>38.30</price>
+      <thumb-image>pro-c-sharp-5.jpg</thumb-image>
+      <title-image>pro-c-sharp-5.jpg</title-image>
+    </item>
+    <item>
+      <id>9</id>
+      <title>Async in C# 5.0</title>
+      <price>13.30</price>
+      <thumb-image>async-in-c-sharp-5.jpg</thumb-image>
+      <title-image>async-in-c-sharp-5.jpg</title-image>
+    </item>
+    <item>
+      <id>10</id>
+      <title>Design Patterns: Elements of Reusable Object-Oriented Software</title>
+      <price>44.30</price>
+      <thumb-image>design-patterns.jpg</thumb-image>
+      <title-image>design-patterns.jpg</title-image>
+    </item>
+    <item>
+      <id>12</id>
+      <title>Working Effectively with Legacy Code</title>
+      <price>45.89</price>
+      <thumb-image>working-effectively-with-legacy-code.jpg</thumb-image>
+      <title-image>working-effectively-with-legacy-code.jpg</title-image>
+    </item>
+    <item>
+      <id>13</id>
+      <title>Clean Code</title>
+      <price>32.95</price>
+      <thumb-image>clean-code.jpg</thumb-image>
+      <title-image>clean-code.jpg</title-image>
+    </item>
+    <item>
+      <id>11</id>
+      <title>Refactoring: Improving the Design of Existing Code</title>
+      <price>47.85</price>
+      <thumb-image>refactoring.jpg</thumb-image>
+      <title-image>refactoring.jpg</title-image>
     </item>
   </books>
 </catalog>

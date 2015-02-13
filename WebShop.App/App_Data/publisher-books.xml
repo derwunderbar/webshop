@@ -23,5 +23,45 @@
       <book-id>3</book-id>
       <publisher-id>2</publisher-id>
     </item>
+    <item>
+      <book-id>4</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>5</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>6</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
+    <item>
+      <book-id>7</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
+    <item>
+      <book-id>8</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>9</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>10</book-id>
+      <publisher-id>2</publisher-id>
+    </item>
+    <item>
+      <book-id>11</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
+    <item>
+      <book-id>12</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
+    <item>
+      <book-id>13</book-id>
+      <publisher-id>1</publisher-id>
+    </item>
   </book-publishers>
 </catalog>
