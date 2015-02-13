@@ -1,6 +1,10 @@
 ﻿$(function () {
-    $('div.button > a').button().addClass('add-to-cart');
+    initAddToCartButtons();
 });
+
+function initAddToCartButtons() {
+    $('div.button > a').button().addClass('add-to-cart');
+}
 
 function addShoppingCartItem(shoppingCartUpdate) {
     updateShoppingCartStatus(shoppingCartUpdate.TotalItems);
