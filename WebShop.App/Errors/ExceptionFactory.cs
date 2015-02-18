@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace WebShop.Errors
 {
@@ -7,6 +8,11 @@ namespace WebShop.Errors
         public static Exception GetInvalidUserException(string userName)
         {
             return new InvalidOperationException(String.Format("User {0} not found", userName));
+        }
+
+        public static Exception GetHttpNotFoundException()
+        {
+            return new HttpException(404, "Not Found");
         }
     }
 }

@@ -14,13 +14,13 @@ namespace WebShop
         {
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register( GlobalConfiguration.Configuration );
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters( GlobalFilters.Filters );
             RouteConfig.RegisterRoutes( RouteTable.Routes );
             BundleConfig.RegisterBundles( BundleTable.Bundles );
             AuthConfig.RegisterAuth();
 
-            Bootstrapper.Initialise();
+            Bootstrapper.Initialise(GlobalConfiguration.Configuration);
 
             AutoMapperConfig.RegisterMappings();
         }

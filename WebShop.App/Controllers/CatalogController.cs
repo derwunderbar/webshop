@@ -1,9 +1,5 @@
-﻿using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using WebShop.Services;
-using WebShop.Services.Catalog;
-using WebShop.Services.Models.Catalog;
+﻿using System.Web.Mvc;
+using WebShop.Errors;
 using WebShop.Utilities;
 using WebShop.ViewModels.Catalog;
 
@@ -11,76 +7,44 @@ namespace WebShop.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly IBookService _bookService;
-        private readonly IAuthorService _authorService;
-        private readonly IApplicationConfig _appConfig;
+        private readonly ICatalogFacade _catalogFacade;
 
-        public CatalogController(IServiceFactory serviceFactory, IApplicationConfig appConfig)
+        public CatalogController(ICatalogFacade catalogFacade)
         {
-            _bookService = serviceFactory.GetBookService();
-            _authorService = serviceFactory.GetAuthorService();
-            _appConfig = appConfig;
+            _catalogFacade = catalogFacade;
         }
 
-        public ActionResult Index( int? page )
+        public ActionResult Index(int? page)
         {
             var viewModel = new PageViewModel() { PageNumber = page };
-            return View( viewModel );
+            return View(viewModel);
         }
 
-        public PartialViewResult BookListViewPartial( int? page )
+        public PartialViewResult BookListViewPartial(int? page)
         {
-            const int pageSize = 10;
-            var pageInner = page ?? 1;
-            var booksPage = _bookService.Get( pageInner, pageSize );
-            var books = booksPage.Items.ToArray();
+            var books = _catalogFacade.GetBooks(page);
+            if (books.TotalItemsCount == 0 || (books.PageNumber - 1) * books.PageSize + 1 > books.TotalItemsCount)
+                throw ExceptionFactory.GetHttpNotFoundException();
 
-            var imageUrlProvider = new ImageUrlProvider();
-            foreach( var book in books )
-                book.Cover = imageUrlProvider.GetUrl( _appConfig.BookThumbsVirtualPath, book.Cover );
-
-            var viewModel = new PagedEnumerableViewModel<Book>()
-            {
-                PageNumber = pageInner,
-                PageSize = pageSize,
-                Items = books,
-                TotalItemsCount = booksPage.TotalItemsCount,
-            };
-            return PartialView( "_BookListViewPagedPartial", viewModel );
+            return PartialView("_BookListViewPagedPartial", books);
         }
 
-        public ActionResult Details( int id )
+        public ActionResult Details(int id)
         {
-            var book = _bookService.Get( id );
+            var book = _catalogFacade.GetBook(id);
+            if (book == null)
+                throw ExceptionFactory.GetHttpNotFoundException();
 
-            if( book == null )
-                throw new HttpException( 404, "Not Found" );
-
-            var imageUrlProvider = new ImageUrlProvider();
-            var viewModel = new BookDetailsViewModel()
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Price = book.Price,
-                Cover = imageUrlProvider.GetUrl( _appConfig.BookImagesVirtualPath, book.Cover ),
-                Author = book.Author,
-                Publisher = book.Publisher,
-                Description = book.Description,
-            };
-
-            return View( viewModel );
+            return View(book);
         }
 
-        public ActionResult Author( int id )
+        public ActionResult Author(int id)
         {
-            var author = _authorService.Get( id );
-            var imageUrlProvider = new ImageUrlProvider();
-            var books = author.Books.ToArray();
-            foreach( var book in books )
-                book.Cover = imageUrlProvider.GetUrl( _appConfig.BookThumbsVirtualPath, book.Cover );
-            author.Books = books;
+            var author = _catalogFacade.GetAuthor(id);
+            if (author == null)
+                throw ExceptionFactory.GetHttpNotFoundException();
 
-            return View( author );
+            return View(author);
         }
     }
 }

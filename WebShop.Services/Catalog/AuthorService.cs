@@ -22,6 +22,9 @@ namespace WebShop.Services.Catalog
         public AuthorDetails Get(int id)
         {
             var entity = _repository.Get(id);
+            if (entity == null)
+                return null;
+
             var authorDetails = new AuthorDetails()
             {
                 Id = entity.Id,

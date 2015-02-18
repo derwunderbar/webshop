@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Web.Mvc;
 
 namespace WebShop.ViewModels.Shopping
 {
