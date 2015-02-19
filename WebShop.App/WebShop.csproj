@@ -204,6 +204,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiDemoController.cs" />
     <Compile Include="Controllers\Api\CatalogApiController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -229,9 +230,12 @@
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterExternalLoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\AuthorViewModel.cs" />
     <Compile Include="ViewModels\Catalog\BookDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Catalog\BookViewModel.cs" />
     <Compile Include="ViewModels\Catalog\PagedEnumerableViewModel.cs" />
     <Compile Include="ViewModels\Catalog\PageViewModel.cs" />
+    <Compile Include="ViewModels\PublisherViewModel.cs" />
     <Compile Include="ViewModels\Shopping\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\Shopping\CheckoutWizardViewModel.cs" />
     <Compile Include="ViewModels\Shopping\CustomerViewModel.cs" />
@@ -247,6 +251,7 @@
     <Content Include="App_Data\WebShop_log.ldf">
       <DependentUpon>WebShop.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\simplePagination.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -312,6 +317,7 @@
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery.dotdotdot.js" />
     <Content Include="Scripts\jquery.dotdotdot.min.js" />
+    <Content Include="Scripts\jquery.simplePagination.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -324,6 +330,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\Views\ApiDemo\index.js" />
     <Content Include="Scripts\Views\Common\add-to-cart.js" />
     <Content Include="Scripts\Views\Common\catalog.js" />
     <Content Include="Scripts\Views\Common\shopping-cart-status.js" />
@@ -421,6 +428,7 @@
     <Content Include="Views\ShoppingCart\CheckoutCustomer.cshtml" />
     <Content Include="Views\ShoppingCart\EditorTemplates\Customer.cshtml" />
     <Content Include="Views\ShoppingCart\_CheckoutShoppingCartOverview.cshtml" />
+    <Content Include="Views\ApiDemo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

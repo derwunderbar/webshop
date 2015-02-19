@@ -1,0 +1,52 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "API Demo";
+}
+
+@section styles {
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/simplePagination.css")
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Scripts/jquery.simplePagination.js")
+    @Scripts.Render("~/Scripts/Views/ApiDemo/index.js")
+}
+
+<div id="content-container">
+    <div id="templates">
+        <div class="book-api-small-template">
+            <div class="book-api-small">
+                <div class="thumb">
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                </div>
+                <div class="title"><a href=""></a></div>
+                <div class="price top-spacing">
+                    <span class="price-unit">$</span>
+                    <span class="price-number"></span>
+                </div>
+            </div>
+        </div>
+        <div class="book-api-popup-template">
+            <div class="book-api-popup">
+                <div class="horizontal horizontal-spacing">
+                    <div class="cover">
+                        <img src=""/>
+                    </div>
+                </div>
+                <div class="horizontal horizontal-spacing right">
+                    <div class="title"><h3><span class="value"/></h3></div>
+                    <div class="author top-spacing">by <span class="value"/></div>
+                    <div class="price price-big top-double-spacing">$ <span class="value"/></div>
+                    <div class="publisher top-double-spacing"><b>Publisher:</b> <span class="value"/></div>
+                    <div class="descr top-double-spacing"><b>Description:</b> <span class="value"/></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="catalog"></div>
+    <div id="pager"><div></div></div>
+</div>

@@ -1,14 +1,17 @@
 using System.Linq;
+using AutoMapper;
+using WebShop.Data.Entities.Shopping;
 using WebShop.Services;
 using WebShop.Services.Catalog;
 using WebShop.Services.Models.Catalog;
+using WebShop.ViewModels;
 using WebShop.ViewModels.Catalog;
 
 namespace WebShop.Utilities
 {
     public interface ICatalogFacade
     {
-        PagedEnumerableViewModel<Book> GetBooks(int? page);
+        PagedEnumerableViewModel<BookViewModel> GetBooks(int? page);
         BookDetailsViewModel GetBook(int id);
         AuthorDetails GetAuthor(int id);
     }
@@ -28,7 +31,7 @@ namespace WebShop.Utilities
             _appConfig = appConfig;
         }
 
-        public PagedEnumerableViewModel<Book> GetBooks(int? page)
+        public PagedEnumerableViewModel<BookViewModel> GetBooks(int? page)
         {
             var pageInner = page ?? 1;
             var booksPage = _bookService.Get(pageInner, PageSize);
@@ -38,11 +41,11 @@ namespace WebShop.Utilities
             foreach (var book in books)
                 book.Cover = imageUrlProvider.GetUrl(_appConfig.BookThumbsVirtualPath, book.Cover);
 
-            var viewModel = new PagedEnumerableViewModel<Book>()
+            var viewModel = new PagedEnumerableViewModel<BookViewModel>()
             {
                 PageNumber = pageInner,
                 PageSize = PageSize,
-                Items = books,
+                Items = books.Select(a => Mapper.Map<BookViewModel>(a)),
                 TotalItemsCount = booksPage.TotalItemsCount,
             };
 
@@ -63,8 +66,8 @@ namespace WebShop.Utilities
                 Title = book.Title,
                 Price = book.Price,
                 Cover = imageUrlProvider.GetUrl(_appConfig.BookImagesVirtualPath, book.Cover),
-                Author = book.Author,
-                Publisher = book.Publisher,
+                Author = Mapper.Map<AuthorViewModel>(book.Author),
+                Publisher = Mapper.Map<PublisherViewModel>(book.Publisher),
                 Description = book.Description,
             };
 

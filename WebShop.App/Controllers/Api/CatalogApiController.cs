@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Web.Http;
-using WebShop.Services.Models.Catalog;
 using WebShop.Utilities;
 using WebShop.ViewModels.Catalog;
 
@@ -17,7 +16,7 @@ namespace WebShop.Controllers.Api
         }
 
         [Route("{page:int?}")]
-        public PagedEnumerableViewModel<Book> GetBooks(int page = 1)
+        public PagedEnumerableViewModel<BookViewModel> GetBooks(int page = 1)
         {
             var books = _catalogFacade.GetBooks(page);
             if (books.TotalItemsCount == 0 || (books.PageNumber - 1) * books.PageSize + 1 > books.TotalItemsCount)

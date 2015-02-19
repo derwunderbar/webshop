@@ -2,7 +2,10 @@
 using WebShop.Data.Entities.Profile;
 using WebShop.Data.Entities.Shopping;
 using WebShop.Services.Models;
+using WebShop.Services.Models.Catalog;
 using WebShop.Services.Models.Shopping;
+using WebShop.ViewModels;
+using WebShop.ViewModels.Catalog;
 using WebShop.ViewModels.Shopping;
 
 namespace WebShop
@@ -17,6 +20,11 @@ namespace WebShop
 
         public static void RegisterModelViewModelMappings()
         {
+            // Catalog types
+            Mapper.CreateMap<Book, BookViewModel>();
+            Mapper.CreateMap<Author, AuthorViewModel>();
+            Mapper.CreateMap<Publisher, PublisherViewModel>();
+
             // Shopping types
             Mapper.CreateMap<CustomerViewModel, CustomerModel>();
             Mapper.CreateMap<CheckoutViewModel, OrderModel>()

@@ -606,8 +606,8 @@ td.total-row {
 }
 
 
-    /* books
-    ----------------------------------------------------------*/
+/* books
+----------------------------------------------------------*/
 
 .book-small {
     display: inline-block;
@@ -635,7 +635,7 @@ td.total-row {
     margin: 6px 0px;
 }
 
-div.title {
+.book-small > div > div > div.title {
     max-height: 53px;
 }
 
@@ -655,6 +655,14 @@ div.top > div.space {
 
 .horizontal-spacing {
     padding: 0px 6px;
+}
+
+.top-spacing {
+    padding-top: 6px;
+}
+
+.top-double-spacing {
+    padding-top: 12px;
 }
 
 .details {
@@ -744,7 +752,39 @@ div.page-buttons > div > a, div.page-buttons > div > span {
     width: auto;
     padding: 0.2em 0.6em !important;
 }
-    
+
+
+/* api page
+----------------------------------------------------------*/
+#templates {
+    display: none;
+}
+.book-api-small {
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+}
+
+.book-api-popup {
+    max-width: 700px;
+}
+
+.book-api-popup .right {
+    max-width: 352px;
+}
+.book-api-popup > div > .cover > img {
+    max-width: 300px;
+    max-height: 350px;
+}
+
+#pager {
+    padding-top: 16px;
+    display: table;
+    margin: 0 auto;
+}
     /*
     img:hover{
         background-color: #c6f;
